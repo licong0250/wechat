@@ -1,0 +1,130 @@
+/* CSS Document */
+@charset "utf-8";
+*{ margin:0; padding:0; list-style:none;}
+	input[type="button"], 
+	input[type="submit"], 
+	input[type="reset"] 
+	{
+	-webkit-appearance: none;
+	font-family:Arial, Helvetica, sans-serif}
+a{ text-decoration:none;}
+body{
+	width:100%;
+	max-width:640px;
+	margin:0 auto;
+	
+	top:0px; bottom:0px; left:0px; right:0px;
+	min-width:320px;}
+
+.header{
+	/*height:50px;*/
+	text-align:center;
+	width:100%;;
+	max-width:640px;
+	/*height:35%;*/
+	background:#1b1b1b;
+	position: relative;}
+.header img{
+	vertical-align:middle;	
+	/*text-height:auto;*/
+    /*margin-top:6px;	*/	
+	width:100%;}
+.header span{  
+	color:#FFF;
+	font-size:24px;
+	line-height:230%;
+	}
+.list{
+	line-height:300%;;
+	text-align:center;
+	}
+.list ul li{
+	border-bottom:1px solid #e8e8e8;}
+.list p{
+	/*padding:0 1%;*/
+	color:#494949;
+	}
+.list span{
+	font-size:0.8em;
+	/*float:right;*/}
+.foot{
+	margin-top:10%;
+	/*line-height:130px;*/
+	/*margin-top:95%;*/
+	/*width:100%;
+	margin:0 auto;*/
+	color:#838383;
+	text-align:center;
+}
+/*<!--以下为通知通告详情页样式===========================================================================================================									==========================================================================================================================-->*/
+.text{
+	width:100%;
+	max-width:640px;
+	
+	}
+.text p{
+	margin-top:8%;
+	/*text-align:center;*/
+	line-height:30px;
+	text-indent:2em;
+	
+	}
+.center{
+	width:90%;
+	margin:0 auto;
+	text-align:center;
+	font-size:1.5em;
+	}
+.text span{
+	
+	color:#747474;
+	font-size:0.6em;}
+/*<!--以下为公务员管理样式===========================================================================================================									==========================================================================================================================-->*/
+.gongwuyuan{
+	margin-top:15px;}
+.gongwuyuan{
+	
+	  width:100%;
+	/*  margin:10px auto; */
+	  max-width:640px; 
+	  min-width:320px;
+	  height:70px;
+	  margin-top:5%;
+	  display:block;
+	  
+	  }
+.pic{
+	width:30%;
+	float:left;
+	padding-left:2.5%;
+
+	}
+
+.pic img{
+	width:100%;
+}
+.neirong{
+	width:56%;
+	float:left;
+	color:#201f1f;
+	/*line-height:20px;  white-space:nowrap; height:40px;*/
+	 word-break: break-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;/*对象作为伸缩盒子模型显示*/
+	  -webkit-box-orient: vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+	 overflow:hidden; 
+	  text-overflow:ellipsis;   -webkit-line-clamp:2;
+	 margin-left: 8px; /*显示的行数*/
+}
+.detail{
+	float:right;
+	width:30%;
+	
+	
+	line-height:5px;
+	
+	
+	border-radius:5px;
+	font-size:0.8em;
+	
+	text-align:center;}

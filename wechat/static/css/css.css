@@ -1,0 +1,56 @@
+/* CSS Document */
+@charset "utf-8";
+*{ margin:0; padding:0; list-style:none;}
+	input[type="button"], 
+	input[type="submit"], 
+	input[type="reset"] 
+	{
+	-webkit-appearance: none;}
+a{ text-decoration:none;} 
+body{
+	
+	width:100%;
+	max-width:640px;
+	margin:0 auto;
+	background:#d7e2e4;
+	top:0px; bottom:0px; left:0px; right:0px;
+	min-width:320px;}	
+.banner{}
+.banner img{
+	width:100%;
+	max-width:640px;
+	margin:0 auto;
+		}
+.main{
+	
+	width:100%;
+	max-width:640px;}
+.main ul{
+	}
+.main ul li{
+	float:left;
+	width:33%;
+	max-width:230px;
+	margin:0 auto;
+	padding:1% 0;
+	/*margin-top:5%;
+	margin-left:8%;*/
+ }
+
+ .main ul li img{
+	 width:70%;}
+.main ul li p{
+	text-align:center;
+	color:#5b595a;}
+.main ul li p span{
+	 clear:both; display:block; padding:-8px 10px; line-height:30px; font-size:16px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:center}
+
+.foot{
+	color:#838383;
+	line-height:130px;
+	/*margin-top:95%;*/
+	/*width:100%;
+	margin:0 auto;*/
+	text-align:center;
+}
+/*<!--首页结束----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------结束end-->*/
