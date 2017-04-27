@@ -9,7 +9,7 @@ class Hotel(models.Model):
     lng=models.FloatField(verbose_name='经度')
     lat=models.FloatField(verbose_name='纬度')
     introduce=models.TextField(blank=True,verbose_name='简介')
-    avr_score=models.DecimalField(max_digits=3,decimal_places=1,verbose_name='评分',default=5.0)
+    avr_score=models.FloatField(verbose_name='评分',default=5.0)
     img=models.ImageField(upload_to='img',blank=True)
 
     def __unicode__(self):
@@ -22,7 +22,7 @@ class Hotel(models.Model):
 
 class Comment(models.Model):
     comment=models.TextField(blank=True,verbose_name='评论')
-    socre=models.DecimalField(max_digits=3,decimal_places=1,verbose_name='评分')
+    socre=models.FloatField(verbose_name='评分',default=5.0)
     img=models.ImageField(upload_to='comment_img',blank=True)
     hotel=models.ForeignKey(Hotel)
 

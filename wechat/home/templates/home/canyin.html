@@ -11,23 +11,25 @@
 <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script><!--调用jQuery-->
 <title>餐饮安全</title>
 <style type="text/css">
-        body, html,#bdmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+        body, html {width: 100%;height: 100%}
     </style>
 
 </head>
 
 <body>
-<div style="width: 100%;height: 100%">
-   <div id="bdmap" style="width: 100%;height: 100%"></div>
-    <div id="checkHotel" style="display: none;z-index: 99">
+
+   <div id="bdmap" style="width: 100%;height: 100%">
+
+    </div>
+    <div id="checkHotel" style="display: none">
         <div id="hotelName"></div><div id="score"></div>
         <br>
         <div id="hotelAddress"></div>
         <br>
         <input id="SearchRoad" type="button" value="查看路线">
         <input id="hotelDetail" type="button" value="查看评论">
-    </div>
-    </div>
+   </div>
+
 </body>
 </html>
 <script type="text/javascript">
@@ -94,6 +96,7 @@
 	}
 	function openDiv(marker){
         alert(marker.getPosition().lng);
+        document.getElementById("bdmap").style.height= 75+"%";
 		document.getElementById('checkHotel').style.display="block";
         document.getElementById('hotelName').innerHTML = marker.getPosition().lng;
 	}
