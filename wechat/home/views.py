@@ -123,12 +123,13 @@ def canyin(request):
         tmp_info={}
         tmp_info["posi"]=[]
         tmp_info["name"]=""
-        tmp_info["id"]=""
+        tmp_info["id"]=None
         tmp_info["score"]=None
-        tmp_posi=[]
+
         tmp_info["name"]=str(hotel.name)
-        tmp_info["score"]=hotel.avr_score
-        tmp_info["id"]=hotel.id
+        tmp_info["score"]=float(hotel.avr_score)
+        tmp_info["id"]=int(hotel.id)
+        tmp_posi=[]
         tmp_posi.append(hotel.lng)
         tmp_posi.append(hotel.lat)
         tmp_info["posi"]=tmp_posi
