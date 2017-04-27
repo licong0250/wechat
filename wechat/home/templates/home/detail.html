@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head >
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css">
+    <script src="../../../static/assets/js/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="../../../static/angularjs/angular.min.js" type="text/javascript"></script>
+    <style>
+            .pf .glyphicon {
+                color: orange;
+                user-select: none;
+                padding: 0px 5px;
+            }
+
+            .pf li {
+                padding: 5px 0px;
+                font-size:16px;
+            }
+        </style>
+</head>
+<body >
+    <div class="container">
+
+        <div style="float: right;margin-top: 2%;margin-bottom: 2% ">
+            <button type="button" onclick="showcomment()" class="btn btn-success">我要评论</button>
+        </div>
+        <form id="formcomment" style="display: none" action="" method="post" enctype= "multipart/form-data">
+             {% csrf_token %}
+              <div class="form-group">
+                   <div class="pblockm" id="d1406010801010000002" data-rh-caption="块样式">
+                        <br><br><br>
+                        <div class="pf">
+                            <div data-rh-score="0" style="float: left">
+                                <span class="title" >我要评分</span>
+                                <span class="glyphicon glyphicon-star-empty"></span>
+                                <span class="glyphicon glyphicon-star-empty"></span>
+                                <span class="glyphicon glyphicon-star-empty"></span>
+                                <span class="glyphicon glyphicon-star-empty"></span>
+                                <span class="glyphicon glyphicon-star-empty"></span>
+                                <span class="tip" id="point"  style="float: right;margin-left: 3px" ></span>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+               <br>
+              <div class="form-group">
+                <textarea id="commenttext" name="commenttext" class="form-control" rows="3" placeholder="请输入您的评论。"></textarea>
+              </div>
+              <div style="display: none">
+                 <input type="text" name="inputpoint" id="inputpoint">
+                 <input type="text" name="nickname" id="nickname" value="{{nickname}}">
+                 <input type="text" name="useinfo" id="useinfo" value="{{useinfo}}">
+                 <input type="text" name="hostid" id="hostid" value="{{hostid}}">
+              </div>
+
+              <div class="form-group" style="float: left">
+                <label for="commentimg" style="float: left">我要传图</label>
+                <input  style="float: left;margin-left: 20%" type="file" id="commentimg" name="commentimg" multiple="multiple">
+              </div>
+              <!--<button type="submit" class="btn btn-success" onclick="submitfun()">提交</button>-->
+              <button type="button" onclick="hidecomment()" class="btn btn-default" >取消</button>
+              <button type="submit" onclick="submitfun()" class="btn btn-success" style="float: right">提交</button>
+        </form>
+        <table class="table ">
+          <thead>
+            <tr>
+                <th style="font-size: xx-large">消费评价</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr>
+                <td>
+                    <div style="float: left;width: 100%">
+                      <div style="float: left;width: 50%">
+                          <div style="margin: 10%">
+                              <span style="color: #e38d13;font-size: xx-large">4.2</span>分
+                          </div>
+                          <div style="margin: 10%">
+                              总计<span style="color: #e38d13">3</span>人评论
+                          </div>
+
+                      </div>
+
+                      <div style="float: left;width: 10%; ">
+                          <div style="margin-bottom:2px">1分</div>
+                          <div style="margin-bottom:2px">2分</div>
+                          <div style="margin-bottom:2px">3分</div>
+                          <div style="margin-bottom:2px">4分</div>
+                          <div style="margin-bottom:2px">5分</div>
+                      </div>
+                      <div style="float: left;width: 40%; ">
+
+
+                            <div class="progress" style="margin-bottom:2px">
+                              <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;">
+                                0%
+                              </div>
+                            </div>
+
+                            <div class="progress" style="margin-bottom:2px">
+                              <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: 0%;">
+                                0%
+                              </div>
+                            </div>
+                          <div class="progress" style="margin-bottom:2px">
+                              <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: 0%;">
+                                0%
+                              </div>
+                            </div>
+                          <div class="progress" style="margin-bottom:2px">
+                              <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: 100%;">
+                                100%
+                              </div>
+                            </div>
+                          <div class="progress" style="margin-bottom:2px">
+                              <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: 0%;">
+                                0%
+                              </div>
+                            </div>
+                      </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-xs-6 col-md-4" style="margin-left:2%;width: auto ">
+                                <img src="../../../static/comment_img/kkx.jpg" alt="..." class="img-responsive" alt="Responsive image">
+                            </div>
+                                <div>
+                                    用户名
+                                </div>
+
+                                <div data-rh-score="0" >
+
+                                    {% for item in item_list %}
+                                        <span class="glyphicon glyphicon-star-empty" style="color: orange;padding: 10px 0px;font-size:16px;"></span>
+                                    {% endfor %}
+
+                                        <span class="glyphicon glyphicon-star-empty" style="padding: 10px 0px;font-size:16px;"></span>
+                                </div>
+
+                        </div>
+
+                    </div>
+                    <div >
+                            特别好吃，环境挺好的，品种也齐全。下次还来。
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-xs-6 col-md-4" style="margin-left:2%;width: auto ">
+                                <img src="../../../static/comment_img/kkx.jpg" alt="..." class="img-responsive" alt="Responsive image">
+                            </div>
+                                <div>
+                                    用户名
+                                </div>
+
+                                <div data-rh-score="0" >
+
+                                    {% for item in item_list %}
+                                        <span class="glyphicon glyphicon-star-empty" style="color: orange;padding: 10px 0px;font-size:16px;"></span>
+                                    {% endfor %}
+
+                                        <span class="glyphicon glyphicon-star-empty" style="padding: 10px 0px;font-size:16px;"></span>
+                                </div>
+
+                        </div>
+
+                    </div>
+                    <div >
+                            特别好吃，环境挺好的，品种也齐全。下次还来。
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-xs-6 col-md-4" style="margin-left:2%;width: auto ">
+                                <img src="../../../static/comment_img/kkx.jpg" alt="..." class="img-responsive" alt="Responsive image">
+                            </div>
+                                <div>
+                                    用户名
+                                </div>
+
+                                <div data-rh-score="0" >
+
+                                    {% for item in item_list %}
+                                        <span class="glyphicon glyphicon-star-empty" style="color: orange;padding: 10px 0px;font-size:16px;"></span>
+                                    {% endfor %}
+
+                                        <span class="glyphicon glyphicon-star-empty" style="padding: 10px 0px;font-size:16px;"></span>
+                                </div>
+
+                        </div>
+
+                    </div>
+                    <div >
+                            特别好吃，环境挺好的，品种也齐全。下次还来。
+                    </div>
+                </td>
+            </tr>
+
+
+          </tbody>
+        </table>
+    </div>
+
+<script>
+    function showcomment(){
+        document.getElementById("formcomment").style.display=''
+    }
+    function hidecomment(){
+
+        document.getElementById("formcomment").style.display='none'
+    }
+</script>
+<script>
+        var tip=['','1分','2分','3分','4分','5分'];
+        $('.pf').on('mousedown','.glyphicon',function(){
+            if($(this).hasClass('glyphicon-star')){
+                var score = 0;
+                $(this).parent().attr('data-rh-score' ,score);
+                $(this).addClass('glyphicon-star-empty').removeClass('glyphicon-star').siblings('.glyphicon').addClass('glyphicon-star-empty').removeClass('glyphicon-star');
+                $(this).nextAll('.tip').text(tip[0]);
+            }else{
+                var score = $(this).index();
+                $(this).parent().attr('data-rh-score' ,score);
+                $(this).addClass('glyphicon-star').removeClass('glyphicon-star-empty').prevAll('.glyphicon').addClass('glyphicon-star').removeClass('glyphicon-star-empty');
+                $(this).nextAll('.tip').text(tip[score]);
+            }
+            $('#inputpoint').val($("#point").text())
+        });
+
+
+        </script>
+</body>
+</html>

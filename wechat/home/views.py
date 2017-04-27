@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
+import random
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -11,6 +13,9 @@ import hashlib
 from menu import MenuManager
 import json
 import requests
+APPID = 'wxe840f265a71f11b8'
+APPSECRET = '050bb9529cf251aa4d0c1f7a2565554d'
+
 @csrf_exempt
 def WeChat(request):
   #这里我当时写成了防止跨站请求伪造，其实不是这样的，恰恰相反。因为django默认是开启了csrf防护中间件的
@@ -114,6 +119,96 @@ def municipalhall(request):
 
 def wechatmatrix(request):
     return render(request,'home/wechatmatrix.html')
+
+def getuserinfo(code):
+    '''
+     获得用户的昵称等信息
+    :param request:
+    :return:
+    '''
+
+    access_token_url = "https://api.weixin.qq.com/sns/oauth2/access_token"
+    cont = {}
+    cont["appid"] = APPID
+    cont["secret"] = APPSECRET
+    cont["code"] = code
+    cont["grant_type"] = "authorization_code"
+    cont["srtnoc"] =  random.random()
+
+    response = requests.get(access_token_url,params=cont)
+
+    print "response:",response.text
+
+    retparm = eval(response.text)
+    print "retparm:",retparm
+    openid = retparm["openid"]
+    refresh_token = retparm["refresh_token"]
+    access_token = checktoken(retparm["access_token"],openid,refresh_token)
+    scope = retparm["scope"]
+    userparams_url = "https://api.weixin.qq.com/sns/userinfo?access_token="+access_token+"&openid="+openid+"&lang=zh_CN"
+    userinfo = requests.get(userparams_url)
+    userinfo.encoding = 'utf-8'
+    print "用户信息：",userinfo.text
+    return eval(userinfo.text)
+@csrf_exempt
+def canyindetail(request):
+    if request.method == "GET":
+        code = request.GET.get('code')
+        hostid = request.GET.get('id')
+        print code,"id:",id
+
+        useinfo = getuserinfo(code)
+        print "用户信息：",useinfo["nickname"]
+        print "用户信息：",useinfo["headimgurl"]
+        context = {}
+        context["item_list"] = [1,2,3,4]
+        context["nickname"] = useinfo["nickname"]
+        context["useinfo"] = useinfo
+        context["hostid"] = hostid
+        return render(request,'home/detail.html',context)
+    if request.method == "POST":
+        print "I am POST "
+        hostid = request.POST.get("hostid")
+        useinfo = request.POST.get("useinfo")
+        nickname = request.POST.get("nickname")
+        point = request.POST.get("inputpoint")
+        commenttext = request.POST.get("commenttext")
+        images = request.FILES.getlist('commentimg')
+        imagesurl = ''
+        for f in images:
+             url = './static/comm_images/'+ genOrderNum() + f.name
+             imagesurl += url+";"
+             destination = open(url,'wb+')
+             for chunk in f.chunks():
+                  destination.write(chunk)
+             destination.close()
+        print imagesurl
+        print hostid,point,commenttext,images,useinfo,hostid,nickname
+        context = {}
+        return render(request,'home/detail.html',context)
+def genOrderNum():
+    _now = datetime.utcnow()
+    seq = [
+        '{0:04}'.format(_now.year),
+        '{0:02}'.format(_now.month),
+        '{0:02}'.format(_now.day),
+        '{0:02}'.format(_now.hour),
+        '{0:02}'.format(_now.minute),
+        '{0:02}'.format(_now.second),
+        '{0:06}'.format(_now.microsecond)]
+    return 'COMMENT' + ''.join(seq)
+
+def checktoken(token,openid,refresh_token):
+    chekouturl = "https://api.weixin.qq.com/sns/auth?access_token="+token+"&openid="+openid
+    result = requests.get(chekouturl)
+    if eval(result.text)["errcode"] == 0:
+        print "token有效"
+        return token
+    else:
+        refurl = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid="+APPID+"&grant_type="+refresh_token+"&refresh_token=REFRESH_TOKEN"
+        respon = requests.post(refurl)
+        if eval(respon.text).has_key('access_token'):
+            return eval(respon.text)["access_token"]
 
 def canyin(request):
     return render(request,'home/canyin.html')

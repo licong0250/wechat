@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'^municipalhall/', views.municipalhall,name='municipalhall'),
     url(r'^wechatmatrix/', views.wechatmatrix,name='wechatmatrix'),
     url(r'^canyin/', views.canyin,name='canyin'),
+    url(r'^canyindetail/', views.canyindetail,name='canyindetail'),
     url(r'^text/', views.text,name='test'),
 ]
