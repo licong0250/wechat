@@ -9,6 +9,7 @@ from imgtest import imgtest
 import time
 import hashlib
 from menu import MenuManager
+from models import Hotel,Comment
 import json
 import requests
 @csrf_exempt
@@ -116,7 +117,26 @@ def wechatmatrix(request):
     return render(request,'home/wechatmatrix.html')
 
 def canyin(request):
-    return render(request,'home/canyin.html')
+    hotels_info=[]
+    hotels=Hotel.objects.all()
+    for hotel in hotels:
+        tmp_info={}
+        tmp_info["posi"]=[]
+        tmp_info["name"]=""
+        tmp_info["id"]=""
+        tmp_info["score"]=None
+        tmp_posi=[]
+        tmp_info["name"]=str(hotel.name)
+        tmp_info["score"]=hotel.avr_score
+        tmp_info["id"]=hotel.id
+        tmp_posi.append(hotel.lng)
+        tmp_posi.append(hotel.lat)
+        tmp_info["posi"]=tmp_posi
+        hotels_info.append(tmp_info)
+    context={}
+    print hotels_info,type(hotels_info)
+    context["hotels_info"]=hotels_info
+    return render(request,'home/canyin.html',context)
 
 def text(request):
     return render(request,'home/text.html')
