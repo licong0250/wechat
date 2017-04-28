@@ -18,15 +18,17 @@
 
 <body>
 
-   <div id="bdmap" style="width: 100%;height: 80%">
+
+   <div id="bdmap" style="width: 100%;height: 75%">
+
 
     </div>
-    <div id="checkHotel" style="display: none">
+    <div id="checkHotel" style="display: none;width: 100%;height: 25%">
         <div id="hotelName"></div><div id="score"></div>
         <br>
         <div id="hotelAddress"></div>
         <br>
-        <input id="SearchRoad" type="button" value="查看路线">
+        <input id="SearchRoad" type="button" value="查看路线" onclick="ViewRoute()">
         <input id="hotelDetail" type="button" value="查看评论">
    </div>
 
@@ -47,10 +49,14 @@
 <script type="text/javascript">
     var hotels={{ hotels_info | safe}}
     console.log(hotels);
+    var startpoint=new BMap.Point();
+    var endpoint=new BMap.Point();
+
     var map = new BMap.Map("bdmap");
     var point = new BMap.Point(116.331398,39.897445);
 	map.centerAndZoom(point,15);
     map.enableScrollWheelZoom(true);
+    var walking = new BMap.WalkingRoute(map, {renderOptions:{map: map, autoViewport: true}});
 	var geolocation = new BMap.Geolocation();
 	geolocation.getCurrentPosition(function(r){
 		if(this.getStatus() == BMAP_STATUS_SUCCESS){
@@ -60,6 +66,7 @@
 			map.panTo(r.point);
 			//alert('您的位置：'+r.point.lng+','+r.point.lat);
             console.log(r.point.lng);
+            startpoint= r.point;
             var sw=new BMap.Point(r.point.lng-0.01, r.point.lat-0.01);
             var ne=new BMap.Point(r.point.lng+0.02, r.point.lat+0.02);
             var bound=new BMap.Bounds(sw,ne);
@@ -103,14 +110,39 @@
 	}
     function addClickHandler(marker){
 		marker.addEventListener("click",function(e){
-			openDiv(marker)}
+            SetMarkerImgUrl();
+            endpoint=marker.getPosition();
+            walking.clearResults();
+			openDiv(marker);
+                }
 		);
 	}
 	function openDiv(marker){
-        alert(marker.getPosition().lng);
         document.getElementById("bdmap").style.height= 75+"%";
 		document.getElementById('checkHotel').style.display="block";
+        var newIcon=marker.getIcon();
+        newIcon.setImageUrl("../../../static/img/test2.png");
+//{#        var newIcon  = new BMap.Icon("../../../static/img/test2.png",new BMap.Size(-29,-26));#}
+        marker.setIcon(newIcon);
         document.getElementById('hotelName').innerHTML = marker.getPosition().lng;
 	}
+    function ViewRoute(){
+
+        walking.search(startpoint,endpoint);
+    }
+    function SetMarkerImgUrl(){
+        for (var i = 0; i < map.getOverlays().length; i++) {
+                if (map.getOverlays()[i].toString() == "[object Marker]"){
+
+                    var icon=map.getOverlays()[i].getIcon();
+                    if(icon.imageUrl=="../../../static/img/test2.png"){
+                        icon.setImageUrl("../../../static/img/cater.png");
+                        map.getOverlays()[i].setIcon(icon);
+                    }
+                }
+
+            }
+    }
+
 </script>
 
