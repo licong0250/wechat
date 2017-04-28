@@ -21,9 +21,11 @@ class Hotel(models.Model):
 
 
 class Comment(models.Model):
+    username=models.CharField(max_length=100, verbose_name='用户名')
+    headimgurl=models.CharField(max_length=256, verbose_name='用户头像URL')
     comment=models.TextField(blank=True,verbose_name='评论')
-    socre=models.FloatField(verbose_name='评分',default=5.0)
-    img=models.ImageField(upload_to='comment_img',blank=True)
+    socre=models.CharField(max_length=10,verbose_name='评分',default='')
+    img=models.CharField(max_length=2048,blank=True)
     hotel=models.ForeignKey(Hotel)
 
 def updateHotelScore(hotel_id):
