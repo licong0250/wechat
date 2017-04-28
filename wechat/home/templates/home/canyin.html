@@ -28,16 +28,20 @@
         <br>
         <div id="hotelAddress"></div>
         <br>
-        <input id="SearchRoad" type="button" value="查看路线" onclick="ViewRoute()">
-        <input id="hotelDetail" type="button" value="查看评论">
+        <div>
+            <input id="SearchRoad" type="button" value="查看路线" onclick="ViewRoute()">
+        </div>
+        <div id="detailcomment">
+
+        </div>
    </div>
 
-      <div style="float:left;width:100%">
-       		<div class="pic"><a href="http://licong.iok.la:35148/home/text"><img src="http://121.40.58.147/static/images/PC3.png" /></a></div>
-            <div class="pic"><a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe840f265a71f11b8&redirect_uri=http%3a%2f%2fchaihaiyang.imwork.net%2fstatic%2ftemplates%2fcanyindetail.html%3fid%3d2&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"><img src="http://121.40.58.147/static/images/PC4.png" /></a></div>
-            <div class="pic"><a href="http://licong.iok.la:35148/home/text"><img src="http://121.40.58.147/static/images/PC5.png"/></a></div>
-     </div>
-      <div style="height:50px; float:left;"></div>
+      <!--<div style="float:left;width:100%">-->
+       		<!--<div class="pic"><a href="http://licong.iok.la:35148/home/text"><img src="http://121.40.58.147/static/images/PC3.png" /></a></div>-->
+            <!--<div class="pic"><a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe840f265a71f11b8&redirect_uri=http%3a%2f%2fchaihaiyang.imwork.net%2fstatic%2ftemplates%2fcanyindetail.html%3fid%3d2&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"><img src="http://121.40.58.147/static/images/PC4.png" /></a></div>-->
+            <!--<div class="pic"><a href="http://licong.iok.la:35148/home/text"><img src="http://121.40.58.147/static/images/PC5.png"/></a></div>-->
+     <!--</div>-->
+
 
 
   <!---------------------内容一项结束------------------------->     
@@ -74,7 +78,7 @@
             for(var i=0;i<hotels.length;i++){
                 var tmp_point=new BMap.Point(hotels[i].posi[0],hotels[i].posi[1])
                 if (bound.containsPoint(tmp_point)){
-                    addMarker(tmp_point,hotels[i].name);
+                    addMarker(tmp_point,hotels[i].name,hotels[i].id);
                 }
 
             }
@@ -96,7 +100,7 @@
 	//BMAP_STATUS_SERVICE_UNAVAILABLE	服务不可用。对应数值“7”。(自 1.1 新增)
 	//BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)
 
-    function addMarker(point,text){
+    function addMarker(point,text,hotelid){
       var label = new BMap.Label(text,{offset:new BMap.Size(-5,-20)});
       label.setStyle({
            "fontSize":"13px",
@@ -106,18 +110,18 @@
 	  var marker = new BMap.Marker(point,{icon:myIcon});
       marker.setLabel(label);
 	  map.addOverlay(marker);
-      addClickHandler(marker);
+      addClickHandler(marker,text,hotelid);
 	}
-    function addClickHandler(marker){
+    function addClickHandler(marker,text,hotelid){
 		marker.addEventListener("click",function(e){
             SetMarkerImgUrl();
             endpoint=marker.getPosition();
             walking.clearResults();
-			openDiv(marker);
+			openDiv(marker,text,hotelid);
                 }
 		);
 	}
-	function openDiv(marker){
+	function openDiv(marker,text,hotelid){
         document.getElementById("bdmap").style.height= 75+"%";
 		document.getElementById('checkHotel').style.display="block";
         var newIcon=marker.getIcon();
@@ -125,6 +129,8 @@
 //{#        var newIcon  = new BMap.Icon("../../../static/img/test2.png",new BMap.Size(-29,-26));#}
         marker.setIcon(newIcon);
         document.getElementById('hotelName').innerHTML = marker.getPosition().lng;
+        document.getElementById('hotelName').innerHTML = text;
+        document.getElementById('detailcomment').innerHTML = '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe840f265a71f11b8&redirect_uri=http%3a%2f%2fchaihaiyang.imwork.net%2fstatic%2ftemplates%2fcanyindetail.html%3fid%3d'+hotelid+'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect">查看详细信息</a>';
 	}
     function ViewRoute(){
 

@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^canyin/', views.canyin,name='canyin'),
     url(r'^canyindetail/', views.canyindetail,name='canyindetail'),
     url(r'^text/', views.text,name='test'),
+    url(r'^charge/', views.charge,name='charge'),
 ]
