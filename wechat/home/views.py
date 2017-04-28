@@ -162,31 +162,116 @@ def canyindetail(request):
         print "用户信息：",useinfo["nickname"]
         print "用户信息：",useinfo["headimgurl"]
         context = {}
+        commentlist = Comment.objects.filter(hotel_id=hostid)
+        commentinfo = []
+        if commentlist:
+            for comm in commentlist:
+                temodict = {}
+                temodict["comment"] = comm
+                if comm.img:
+                    imgurllist = comm.img.encode('utf-8').split(';')
+                    imgurllist.pop()
+                    temodict["imgurllist"] = imgurllist
+                else:
+                    temodict["imgurllist"] = []
+                commentinfo.append(temodict)
+
+        hotel = Hotel.objects.filter(id=hostid)
+        if hotel:
+            context["hotelpoint"] = hotel[0].avr_score
+        context["commentlist"] = commentlist
+        context["commentlistlen"] = len(commentlist)
         context["item_list"] = [1,2,3,4]
         context["nickname"] = useinfo["nickname"]
         context["useinfo"] = useinfo
         context["hostid"] = hostid
+        context["commentinfo"] = commentinfo
+
+        numpoint = []
+        for temp in ['10000','11000','11100','11110','11111']:
+            if len(commentlist) != 0:
+                numpoint.append(float('%.2f' %(float(getnumforpoint(temp))/len(commentlist)))*100)
+            else:
+                numpoint.append(0)
+            print "getnumforpoint(temp):",getnumforpoint(temp)
+        context["numpoint"] = numpoint
         return render(request,'home/detail.html',context)
     if request.method == "POST":
         print "I am POST "
         hostid = request.POST.get("hostid")
         useinfo = request.POST.get("useinfo")
         nickname = request.POST.get("nickname")
-        point = request.POST.get("inputpoint")
+        point = request.POST.get("inputpoint")[:1]
+        if not point:
+            point = 0
         commenttext = request.POST.get("commenttext")
         images = request.FILES.getlist('commentimg')
         imagesurl = ''
         for f in images:
              url = './static/comm_images/'+ genOrderNum() + f.name
-             imagesurl += url+";"
+             imagesurl += "../../."+url+";"
              destination = open(url,'wb+')
              for chunk in f.chunks():
                   destination.write(chunk)
              destination.close()
-        print imagesurl
-        print hostid,point,commenttext,images,useinfo,hostid,nickname
+        print imagesurl,"point,",point
+        comment = Comment()
+        comment.username = nickname
+        if eval(useinfo)["headimgurl"]:
+            comment.headimgurl = str(eval(useinfo)["headimgurl"]).replace("\\","")
+        comment.socre = getstr(point)
+        comment.comment = commenttext
+        comment.img = imagesurl
+        hotel = Hotel.objects.get(id=hostid)
+        comment.hotel = hotel
+        comment.save()
+        commentlist = Comment.objects.filter(hotel_id=hostid)
+        commentinfo = []
+        if commentlist:
+            for comm in commentlist:
+                temodict = {}
+                temodict["comment"] = comm
+                if comm.img:
+                    imgurllist = comm.img.encode('utf-8').split(';')
+                    imgurllist.pop()
+                    temodict["imgurllist"] = imgurllist
+                else:
+                    temodict["imgurllist"] = []
+                commentinfo.append(temodict)
+
+        sumpoint = 0
+        for temp in ['10000','11000','11100','11110','11111']:
+            sumpoint += getpoint(temp)*getnumforpoint(temp)
+        hotel.avr_score = float('%.2f'%(sumpoint/float(len(commentlist))))
+        hotel.save()
+        #传到前端的数据  评论
         context = {}
+        hotel = Hotel.objects.filter(id=hostid)
+        context["commentlist"] = commentlist
+        context["commentlistlen"] = len(commentlist)
+        context["nickname"] = eval(useinfo)["nickname"]
+        context["useinfo"] = useinfo
+        context["hostid"] = hostid
+        context["commentinfo"] = commentinfo
+
+        numpoint = []
+        sumpoint = 0
+        for temp in ['10000','11000','11100','11110','11111']:
+            if len(commentlist) != 0:
+                numpoint.append(float('%.2f' %(float(getnumforpoint(temp))/len(commentlist)))*100)
+            else:
+                numpoint.append(0)
+            print "getnumforpoint(temp):",getnumforpoint(temp)
+        if hotel:
+            context["hotelpoint"] = hotel[0].avr_score
+        context["numpoint"] = numpoint
+
         return render(request,'home/detail.html',context)
+
+def getnumforpoint(strpoint):
+     commentlist = Comment.objects.filter(socre=strpoint)
+     return len(commentlist)
+
 def genOrderNum():
     _now = datetime.utcnow()
     seq = [
@@ -198,6 +283,20 @@ def genOrderNum():
         '{0:02}'.format(_now.second),
         '{0:06}'.format(_now.microsecond)]
     return 'COMMENT' + ''.join(seq)
+
+def getstr(point):
+    point = int(point)
+    strpoint0 = "00000"
+    strpoint1 = "11111"
+    strpoint = strpoint1[0:point]+strpoint0[point:5]
+    return strpoint
+
+def getpoint(str):
+    point = 0
+    for temp in str:
+        point += int(temp)
+    return point
+
 
 def checktoken(token,openid,refresh_token):
     chekouturl = "https://api.weixin.qq.com/sns/auth?access_token="+token+"&openid="+openid
