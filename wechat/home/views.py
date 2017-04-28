@@ -320,7 +320,7 @@ def canyin(request):
         tmp_info["id"]=None
         tmp_info["score"]=None
 
-        tmp_info["name"]=str(hotel.name)
+        tmp_info["name"]=str(hotel.name.encode('utf-8'))
         tmp_info["score"]=float(hotel.avr_score)
         tmp_info["id"]=int(hotel.id)
         tmp_posi=[]
@@ -335,6 +335,9 @@ def canyin(request):
 
 def text(request):
     return render(request,'home/text.html')
+
+def charge(request):
+    return render(request,'home/charge.html')
 
 def chat(msg):
     import sys

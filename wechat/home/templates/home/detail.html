@@ -22,8 +22,11 @@
 <body >
     <div class="container">
 
-        <div style="float: right;margin-top: 2%;margin-bottom: 2% ">
+        <div style="float: left;margin-top: 2%;margin-bottom: 2% ">
             <button type="button" onclick="showcomment()" class="btn btn-success">我要评论</button>
+        </div>
+        <div style="float: right;margin-top: 2%;margin-bottom: 2% ">
+            <button type="button"  class="btn btn-default">我要投诉</button>
         </div>
         <form id="formcomment" style="display: none" action="" method="post" enctype= "multipart/form-data">
              {% csrf_token %}
