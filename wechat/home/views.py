@@ -334,7 +334,7 @@ def canyin(request):
     return render(request,'home/canyin.html',context)
 
 def text(request):
-    return render(request,'home/text.html')
+    return render(request,'home/detail.html')
 
 def charge(request):
     return render(request,'home/charge.html')
