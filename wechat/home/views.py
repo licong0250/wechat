@@ -11,7 +11,7 @@ from imgtest import imgtest
 import time
 import hashlib
 from menu import MenuManager
-from models import Hotel,Comment
+from models import Hotel,Comment,ApInfo
 import json
 import requests
 APPID = 'wxe840f265a71f11b8'
@@ -320,7 +320,7 @@ def canyin(request):
         tmp_info["id"]=None
         tmp_info["score"]=None
 
-        tmp_info["name"]=str(hotel.name.encode('utf-8'))
+        tmp_info["name"]=str(hotel.name)
         tmp_info["score"]=float(hotel.avr_score)
         tmp_info["id"]=int(hotel.id)
         tmp_posi=[]
@@ -330,7 +330,7 @@ def canyin(request):
         hotels_info.append(tmp_info)
     context={}
     print hotels_info,type(hotels_info)
-    context["hotels_info"]=hotels_info
+    context["hotels_info"]=json.dumps(hotels_info)
     return render(request,'home/canyin.html',context)
 
 def text(request):
@@ -349,3 +349,18 @@ def chat(msg):
     response = requests.post(url,data = con.encode('utf-8'))
     print response.text
     return eval(response.text)["text"]
+
+def showAps(request):
+    ap_list=[]
+    aps=ApInfo.objects.all()
+    print aps
+    for ap in aps:
+        tmp=[]
+        tmp.append(ap.lng)
+        tmp.append(ap.lat)
+        ap_list.append(tmp)
+        print tmp
+    context={}
+    context["apInfo"]=json.dumps(ap_list)
+    return  render(request,'home/apmap.html',context)
+

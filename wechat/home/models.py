@@ -31,3 +31,10 @@ class Comment(models.Model):
 def updateHotelScore(hotel_id):
     item=models.Comment.objects.filter(hotel_id=hotel_id)
     pass
+
+
+class ApInfo(models.Model):
+    address=models.CharField("AP地址",max_length =255,blank=False, null = True)
+    lng=models.FloatField("AP经度",blank=False, null = False)
+    lat=models.FloatField("AP纬度",max_length=20,blank=False, null = False)
+    apmac = models.CharField("AP mac地址",max_length=255,blank=False, null = False)
