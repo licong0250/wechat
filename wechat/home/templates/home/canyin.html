@@ -11,19 +11,21 @@
 <link rel="stylesheet" type="text/css" href="../../../static/bootstrap/css/bootstrap.css">
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=MFNdr8DMmQRO6xrbpsctDvnjb9UjbjT8"></script>
 <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script><!--调用jQuery-->
-<script type="text/javascript" src="../../../static/assets/js/zepto.min.js"></script>
+<script type="text/javascript" src="../../../static/assets/js/zepto.min.js" ></script>
 <title>餐饮安全</title>
 <style type="text/css">
         *{font-family: "微软雅黑";}
         body, html {width: 100%;height: 100%}
         .name{width: 100%}
-        .hotelName{}
+        .hotelName{margin: 0;}
         .hotelName .list-group-item{border: none;}
         .hotelName .list-group-item:nth-child(1){font-size: 1.6rem;font-weight: bold;padding-bottom: 0.2rem;
         white-space: nowrap;  text-overflow:ellipsis;  overflow:hidden;}
         .hotelName .list-group-item:nth-child(2){padding-top: 0;font-size: 1.3rem;color: #9d9d9d;
-        white-space: nowrap;  text-overflow:ellipsis;  overflow:hidden;}
+        }
         .list-score .list-group-item{border: none;}
+        .HoteSelect{}
+        .HoteSelect .list-group-item{border: none;}
 
 
 
@@ -42,12 +44,20 @@
 
 <body>
 
-
    <div id="bdmap" style="width: 100%;height: 75%">
 
 
     </div>
-    <div id="checkHotel" style="width: 100%;height: 25%">
+    <div id="navi_checkHotel">
+        <div class="hotelName list-group">
+            <div class="list-group-item" >您当前处于：</div>
+            <div class="list-group-item" id="navi_hotelAddress">锡林浩特上海路展览馆旁锡林浩特上海路展览馆旁</div>
+        </div>
+        <div class="HoteSelect list-group">
+            <div class="list-group-item" >请在地图上选择一个餐厅</div>
+        </div>
+    </div>
+    <div id="checkHotel" style="width: 100%;height: 25%;display: none">
         <div class="row">
             <div class="col-xs-8">
                 <div class="hotelName list-group">
@@ -57,7 +67,7 @@
             </div>
             <div class="col-xs-4 list-score">
                 <div class="list-group">
-                    <div class="score list-group-item" id="score">评分:<span style="color: red;font-size: 1.6rem;">4.0</span></div>
+                    <div class="score list-group-item" >评分:<span id="score" style="color: red;font-size: 1.6rem;">4.0</span></div>
                 </div>
             </div>
         </div>
@@ -69,7 +79,6 @@
                         <div class="list-main list-group-item">
                             <span class="glyphicon glyphicon-eye-open"></span>
                             <input class="SearchRoad" id="SearchRoad" type="button" value="查看路线" onclick="ViewRoute()">
-                            <a class="con" href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe840f265a71f11b8&redirect_uri=http%3a%2f%2fchaihaiyang.imwork.net%2fstatic%2ftemplates%2fcanyindetail.html%3fid%3d'+2+'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect">查看详细信息</a>;
 
                         </div>
                     </div>
@@ -84,6 +93,7 @@
                 </div>
             </div>
         </div>
+        </div>
       <!--<div style="float:left;width:100%">-->
        		<!--<div class="pic"><a href="http://licong.iok.la:35148/home/text"><img src="http://121.40.58.147/static/images/PC3.png" /></a></div>-->
             <!--<div class="pic"><a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe840f265a71f11b8&redirect_uri=http%3a%2f%2fchaihaiyang.imwork.net%2fstatic%2ftemplates%2fcanyindetail.html%3fid%3d2&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"><img src="http://121.40.58.147/static/images/PC4.png" /></a></div>-->
@@ -92,14 +102,14 @@
 
 
 
-  <!---------------------内容一项结束------------------------->     
+
            
 
 
 </body>
 </html>
-<script type="text/javascript">
-    var hotels={{ hotels_info | safe}}
+<script type="text/javascript" charset="utf-8">
+    var hotels={{ hotels_info | safe }}
     console.log(hotels);
     var startpoint=new BMap.Point();
     var endpoint=new BMap.Point();
@@ -116,6 +126,14 @@
 			var mk = new BMap.Marker(r.point,{icon:myIcon});
 			map.addOverlay(mk);
 			map.panTo(r.point);
+            var gc=new BMap.Geocoder();
+            gc.getLocation(r.point, function(rs) {
+           var addComp = rs.addressComponents;
+           address = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                 document.getElementById('navi_hotelAddress').innerHTML = address;
+
+             });
+
 			//alert('您的位置：'+r.point.lng+','+r.point.lat);
             console.log(r.point.lng);
             startpoint= r.point;
@@ -126,7 +144,7 @@
             for(var i=0;i<hotels.length;i++){
                 var tmp_point=new BMap.Point(hotels[i].posi[0],hotels[i].posi[1])
                 if (bound.containsPoint(tmp_point)){
-                    addMarker(tmp_point,hotels[i].name,hotels[i].id);
+                    addMarker(tmp_point,hotels[i].name,hotels[i].id,hotels[i].address,hotels[i].score);
                 }
 
             }
@@ -148,7 +166,7 @@
 	//BMAP_STATUS_SERVICE_UNAVAILABLE	服务不可用。对应数值“7”。(自 1.1 新增)
 	//BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)
 
-    function addMarker(point,text,hotelid){
+    function addMarker(point,text,hotelid,address,score){
       var label = new BMap.Label(text,{offset:new BMap.Size(-5,-20)});
       label.setStyle({
            "fontSize":"13px",
@@ -158,27 +176,32 @@
 	  var marker = new BMap.Marker(point,{icon:myIcon});
       marker.setLabel(label);
 	  map.addOverlay(marker);
-      addClickHandler(marker,text,hotelid);
+      addClickHandler(marker,text,hotelid,address,score);
 	}
-    function addClickHandler(marker,text,hotelid){
+    function addClickHandler(marker,text,hotelid,address,score){
 		marker.addEventListener("click",function(e){
             SetMarkerImgUrl();
             endpoint=marker.getPosition();
             walking.clearResults();
-			openDiv(marker,text,hotelid);
+			openDiv(marker,text,hotelid,address,score);
                 }
 		);
 	}
-	function openDiv(marker,text,hotelid){
+	function openDiv(marker,text,hotelid,address,score){
         document.getElementById("bdmap").style.height= 75+"%";
 		document.getElementById('checkHotel').style.display="block";
+		document.getElementById('navi_checkHotel').style.display="none";
         var newIcon=marker.getIcon();
         newIcon.setImageUrl("../../../static/img/test2.png");
 //{#        var newIcon  = new BMap.Icon("../../../static/img/test2.png",new BMap.Size(-29,-26));#}
         marker.setIcon(newIcon);
         document.getElementById('hotelName').innerHTML = marker.getPosition().lng;
         document.getElementById('hotelName').innerHTML = text;
-        document.getElementById('detailcomment').innerHTML = '<a class="con" href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe840f265a71f11b8&redirect_uri=http%3a%2f%2fchaihaiyang.imwork.net%2fstatic%2ftemplates%2fcanyindetail.html%3fid%3d'+2+'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect">查看详细信息</a>';
+        document.getElementById('hotelAddress').innerHTML = address;
+        document.getElementById('score').innerHTML = score;
+        console.log(text);
+        console.log(typeof text);
+        document.getElementById('detailcomment').innerHTML = '<a class="con" href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe840f265a71f11b8&redirect_uri=http%3a%2f%2fchaihaiyang.imwork.net%2fstatic%2ftemplates%2fcanyindetail.html%3fid%3d'+2+'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect">查看详情</a>';
 	}
     function ViewRoute(){
 
@@ -199,4 +222,6 @@
     }
 
 </script>
+
+
 
