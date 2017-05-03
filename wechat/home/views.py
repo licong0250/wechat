@@ -190,10 +190,10 @@ def canyindetail(request):
         numpoint = []
         for temp in ['10000','11000','11100','11110','11111']:
             if len(commentlist) != 0:
-                numpoint.append(float('%.2f' %(float(getnumforpoint(temp))/len(commentlist)))*100)
+                numpoint.append(float('%.2f' %(float(getnumforpoint(hostid,temp))/len(commentlist)))*100)
             else:
                 numpoint.append(0)
-            print "getnumforpoint(temp):",getnumforpoint(temp)
+            print "getnumforpoint(temp):",getnumforpoint(hostid,temp)
         context["numpoint"] = numpoint
         return render(request,'home/detail.html',context)
     if request.method == "POST":
@@ -241,7 +241,7 @@ def canyindetail(request):
 
         sumpoint = 0
         for temp in ['10000','11000','11100','11110','11111']:
-            sumpoint += getpoint(temp)*getnumforpoint(temp)
+            sumpoint += getpoint(temp)*getnumforpoint(hostid,temp)
         hotel.avr_score = float('%.2f'%(sumpoint/float(len(commentlist))))
         hotel.save()
         #传到前端的数据  评论
@@ -258,18 +258,18 @@ def canyindetail(request):
         sumpoint = 0
         for temp in ['10000','11000','11100','11110','11111']:
             if len(commentlist) != 0:
-                numpoint.append(float('%.2f' %(float(getnumforpoint(temp))/len(commentlist)))*100)
+                numpoint.append(float('%.2f' %(float(getnumforpoint(hostid,temp))/len(commentlist)))*100)
             else:
                 numpoint.append(0)
-            print "getnumforpoint(temp):",getnumforpoint(temp)
+            print "getnumforpoint(temp):",getnumforpoint(hostid,temp)
         if hotel:
             context["hotelpoint"] = hotel[0].avr_score
         context["numpoint"] = numpoint
 
         return render(request,'home/detail.html',context)
 
-def getnumforpoint(strpoint):
-     commentlist = Comment.objects.filter(socre=strpoint)
+def getnumforpoint(hostid,strpoint):
+     commentlist = Comment.objects.filter(hotel__id=hostid,socre=strpoint)
      return len(commentlist)
 
 def genOrderNum():
@@ -320,7 +320,8 @@ def canyin(request):
         tmp_info["id"]=None
         tmp_info["score"]=None
 
-        tmp_info["name"]=str(hotel.name.encode('utf-8'))
+        tmp_info["name"]=hotel.name.encode('utf-8')
+        tmp_info["address"]=hotel.address.encode('utf-8')
         tmp_info["score"]=float(hotel.avr_score)
         tmp_info["id"]=int(hotel.id)
         tmp_posi=[]
@@ -330,7 +331,7 @@ def canyin(request):
         hotels_info.append(tmp_info)
     context={}
     print hotels_info,type(hotels_info)
-    context["hotels_info"]=hotels_info
+    context["hotels_info"]=json.dumps(hotels_info)
     return render(request,'home/canyin.html',context)
 
 def text(request):
@@ -338,6 +339,9 @@ def text(request):
 
 def charge(request):
     return render(request,'home/charge.html')
+
+def guihua(request):
+    return render(request,'home/guihua.html')
 
 def chat(msg):
     import sys
