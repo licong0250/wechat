@@ -27,5 +27,6 @@ urlpatterns = [
     url(r'^canyindetail/', views.canyindetail,name='canyindetail'),
     url(r'^text/', views.text,name='test'),
     url(r'^charge/', views.charge,name='charge'),
+    url(r'^apmap/', views.showAps,name='apmap'),
     url(r'^guihua/', views.guihua,name='guihua'),
 ]

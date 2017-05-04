@@ -103,7 +103,7 @@
 
 
 
-           
+
 
 
 </body>
@@ -148,6 +148,7 @@
                 }
 
             }
+            showHotelList(hotels);
 		}
 		else {
 			alert('failed'+this.getStatus());
@@ -219,6 +220,21 @@
                 }
 
             }
+    }
+
+
+    function showHotelList(hotels){
+        for(var i=0;i<hotels.length;i++){
+
+            var hotelInfo="<div class='row'><div class='col-xs-8'><div class='hotelName list-group'><div class='list-group-item hotelName' ></div> <div class='list-group-item hotelAddress'></div> </div></div><div class='col-xs-4 list-score'><div class='list-group'><div class='score list-group-item' id='score'>评分:<span style='color: red;font-size: 1.6rem;'></span></div></div></div></div>"
+             $(".hotelName").attr('id','hotel'+i);
+             $(".hotelAddress").attr('id','address'+i);
+             var x=document.getElementById("hotel"+i);
+            console.log(x);
+            console.log(hotels[i].name);
+             x.innerHTML(hotels[i].name);
+            $("#checkHotel").append(hotelInfo);
+        }
     }
 
 </script>
