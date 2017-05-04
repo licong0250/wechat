@@ -10,7 +10,7 @@ class Hotel(models.Model):
     lat=models.FloatField(verbose_name='纬度')
     introduce=models.TextField(blank=True,verbose_name='简介')
     avr_score=models.FloatField(verbose_name='评分',default=5.0)
-    img=models.ImageField(upload_to='img',blank=True)
+    img=models.CharField(max_length=2048,blank=True)
 
     def __unicode__(self):
         return self.name

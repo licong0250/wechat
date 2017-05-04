@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>根据数值，改变星星变亮的宽度</title>
+<script src='../../../static/assets/js/jquery-1.8.2.min.js'></script>
+<link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../../../static/raty-master/lib/jquery.raty.css">
+<script src="../../../static/raty-master/lib/jquery.raty.js"></script>
+
+<style>
+#cont{ width:500px; height:220px;}
+#number{ font-size:18px; margin:22px 0 0 0; padding:0 0 0 15px; height:28px; width:100px; float:left}
+#star1 {width:100px;height:28px;position:relative;padding:0px;background: url('http://www.17sucai.com/static/images/starrating.gif');top;margin:22px 5px 20px 100px; float:left; background-position:0px -38px; overflow:hidden;}
+#star { position:absolute; margin:0px; width:100px; background: url('http://www.17sucai.com/static/images/starrating.gif'); }
+</style>
+</head>
+<body>
+<div id="cont">
+
+
+  <div id="star"+{{ hotelid }}> </div>
+  <div id="number"></div>
+    <br/><br/><br/><br/>
+    <div STYLE="margin-left: 20%">
+    <span class="glyphicon glyphicon-star" style="color: orange;font-size:16px;"></span>
+    <span class="glyphicon glyphicon-star" style="color: orange;font-size:16px;"></span>
+    <span class="glyphicon glyphicon-star" style="color: orange;font-size:16px;"></span>
+    <span class="glyphicon glyphicon-star" style="color: orange;font-size:16px;"></span>
+    <span class="glyphicon glyphicon-star" style="color: orange;font-size:16px;"></span>
+    <span class="glyphicon glyphicon-star-empty" style="font-size:16px;"></span>
+    <span class="glyphicon glyphicon-star-empty" style="font-size:16px;"></span>
+    <span class="glyphicon glyphicon-star-empty" style="font-size:16px;"></span>
+    <span class="glyphicon glyphicon-star-empty" style="font-size:16px;"></span>
+    <span class="glyphicon glyphicon-star-empty" style="font-size:16px;"></span>
+    </div>
+
+
+</div>
+<script>
+$.fn.raty.defaults.path = '../../../static/raty-master/lib/images/';
+function showstar(score,id){
+   $('#star'+id).raty({ readOnly: true, score: score });
+
+}
+</script>
+</body>
+</html>
