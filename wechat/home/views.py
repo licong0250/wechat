@@ -63,15 +63,13 @@ def WeChat(request):
                   c = Context({'toUser': toUser, 'fromUser': fromUser,'nowtime': nowtime,
                                'title1': '锡林浩特WIFI热点分布图', 'description1':'功能开发中，敬请期待。',
                                'picurl1':'http://121.40.58.147/static/images/map-1.jpg',
+                               'url1':'http://licong.iok.la:35148/home/text',
                                'title2': '锡林浩特智慧旅游城市项目计划', 'description2':'功能开发中，敬请期待。',
                                'picurl2':'http://121.40.58.147/static/images/1111.jpg',
-                               'title3': '智能WIFI覆盖旅游景点介绍', 'description3':'功能开发中，敬请期待。',
-                               'picurl3':'http://121.40.58.147/static/images/1112.jpg',
-                               'title4': '智慧锡林浩特简介', 'description4':'功能开发中，敬请期待。',
-                               'picurl4':'http://121.40.58.147/static/images/1113.jpg',
-                               'title5': '公共场所免费开放WIFI', 'description5':'功能开发中，敬请期待。',
-                               'picurl5':'http://121.40.58.147/static/images/1114.jpg',
-                               'url':'http://licong.iok.la:35148/home/text'
+                               'url2':'http://licong.iok.la:35148/home/guihua',
+                               'title3': '智慧锡林浩特简介', 'description4':'功能开发中，敬请期待。',
+                               'picurl3':'http://121.40.58.147/static/images/1113.jpg',
+                               'url3':'http://licong.iok.la:35148/home/xlht'
                                })
                   return HttpResponse(t.render(c))
            elif Event == 'subscribe':
@@ -208,7 +206,7 @@ def canyindetail(request):
         images = request.FILES.getlist('commentimg')
         imagesurl = ''
         for f in images:
-             url = './static/comm_images/'+ genOrderNum() + f.name
+             url = './static/comm_images/'+'COMMENT' + genOrderNum() + f.name
              imagesurl += "../../."+url+";"
              destination = open(url,'wb+')
              for chunk in f.chunks():
@@ -282,7 +280,7 @@ def genOrderNum():
         '{0:02}'.format(_now.minute),
         '{0:02}'.format(_now.second),
         '{0:06}'.format(_now.microsecond)]
-    return 'COMMENT' + ''.join(seq)
+    return ''.join(seq)
 
 def getstr(point):
     point = int(point)
@@ -312,7 +310,7 @@ def checktoken(token,openid,refresh_token):
 
 def canyin(request):
     hotels_info=[]
-    hotels=Hotel.objects.all()
+    hotels=Hotel.objects.all().order_by('-avr_score')
     for hotel in hotels:
         tmp_info={}
         tmp_info["posi"]=[]
@@ -327,11 +325,51 @@ def canyin(request):
         tmp_posi.append(hotel.lng)
         tmp_posi.append(hotel.lat)
         tmp_info["posi"]=tmp_posi
+        hotelimg = hotel.img.encode('utf-8').split(';')
+        if hotel.img != '':
+            print "有图片"
+            tmp_info["img"] = hotelimg[0]
+        else:
+            print "无图片"
+            tmp_info["img"] = '../../../static/comm_images/COMMENT20170428051333849860玉石.jpg'
+        print "6666666666",tmp_info["img"]
+        comment = Comment.objects.filter(hotel=hotel)
+        tmp_info["commentlen"] = comment.count()
         hotels_info.append(tmp_info)
+
     context={}
     print hotels_info,type(hotels_info)
     context["hotels_info"]=json.dumps(hotels_info)
+    context["hotels_title"]=hotels_info
     return render(request,'home/canyin.html',context)
+@csrf_exempt
+def addhotelimg(request):
+    if request.method == "GET":
+        hotellist = Hotel.objects.all()
+        context = {}
+        context["hotellist"] = hotellist
+        return render(request,'home/addhotelimg.html',context)
+    if request.method == "POST":
+        hotelid = request.POST.get('hotelid')
+        images = request.FILES.getlist('hotelimg')
+        imagesurl = ''
+        for f in images:
+             url = './static/hotel_images/'+ 'HOTEL' + genOrderNum() + f.name
+             imagesurl += "../../."+url
+             destination = open(url,'wb+')
+             for chunk in f.chunks():
+                  destination.write(chunk)
+             destination.close()
+        hotel = Hotel.objects.filter(id=hotelid)
+        print 'hotelid:',hotelid,'hotel:',hotel
+        if hotel:
+            hotel[0].img=imagesurl
+            hotel[0].save()
+            print "图片以保存"
+        hotellist = Hotel.objects.all()
+        context = {}
+        context["hotellist"] = hotellist
+        return render(request,'home/addhotelimg.html',context)
 
 def text(request):
     return render(request,'home/detail.html')
@@ -341,6 +379,12 @@ def charge(request):
 
 def guihua(request):
     return render(request,'home/guihua.html')
+
+def xlht(request):
+    return render(request,'home/xlht.html')
+
+def star(request):
+    return render(request,'home/star.html')
 
 def chat(msg):
     import sys

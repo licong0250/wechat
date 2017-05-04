@@ -52,11 +52,11 @@
                         <div class="pf">
                             <div data-rh-score="0" style="float: left">
                                 <span class="title" >我要评分</span>
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                                <span class="glyphicon glyphicon-star-empty"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
                                 <span class="tip" id="point"  style="float: right;margin-left: 3px" ></span>
                             </div>
                         </div>
@@ -139,9 +139,9 @@
                                     <div class="list-group-item" data-rh-score="0" >
                                         {% for item in comm.comment.socre %}
                                            {% ifequal item '1' %}
-                                                <span class="glyphicon glyphicon-star-empty" style="color: orange;font-size:16px;"></span>
+                                                <span class="glyphicon glyphicon-star" style="color: orange;font-size:16px;"></span>
                                             {% else %}
-                                                <span class="glyphicon glyphicon-star-empty" style="font-size:16px;"></span>
+                                                <span class="glyphicon glyphicon-star" style="font-size:16px;"></span>
                                             {% endifequal %}
                                         {% endfor %}
                                     </div>

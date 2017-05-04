@@ -29,4 +29,7 @@ urlpatterns = [
     url(r'^charge/', views.charge,name='charge'),
     url(r'^apmap/', views.showAps,name='apmap'),
     url(r'^guihua/', views.guihua,name='guihua'),
+    url(r'^xlht/', views.xlht,name='xlht'),
+    url(r'^star/', views.star,name='star'),
+    url(r'^addhotelimg/', views.addhotelimg,name='addhotelimg'),
 ]

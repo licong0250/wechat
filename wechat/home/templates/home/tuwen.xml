@@ -3,37 +3,25 @@
 <FromUserName><![CDATA[{{ fromUser }}]]></FromUserName>
 <CreateTime>{{ nowtime }}</CreateTime>
 <MsgType><![CDATA[news]]></MsgType>
-<ArticleCount>5</ArticleCount>
+<ArticleCount>3</ArticleCount>
 <Articles>
     <item>
         <Title><![CDATA[{{ title1 }}]]></Title>
         <Description><![CDATA[{{ description1 }}]]></Description>
         <PicUrl><![CDATA[{{ picurl1 }}]]></PicUrl>
-        <Url><![CDATA[{{ url }}]]></Url>
+        <Url><![CDATA[{{ url1 }}]]></Url>
     </item>
     <item>
         <Title><![CDATA[{{ title2 }}]]></Title>
         <Description><![CDATA[{{ description2 }}]]></Description>
         <PicUrl><![CDATA[{{ picurl2 }}]]></PicUrl>
-        <Url><![CDATA[{{ url }}]]></Url>
+        <Url><![CDATA[{{ url2 }}]]></Url>
     </item>
     <item>
         <Title><![CDATA[{{ title3 }}]]></Title>
         <Description><![CDATA[{{ description3 }}]]></Description>
         <PicUrl><![CDATA[{{ picurl3 }}]]></PicUrl>
-        <Url><![CDATA[{{ url }}]]></Url>
-    </item>
-    <item>
-        <Title><![CDATA[{{ title4 }}]]></Title>
-        <Description><![CDATA[{{ description4 }}]]></Description>
-        <PicUrl><![CDATA[{{ picurl4 }}]]></PicUrl>
-        <Url><![CDATA[{{ url }}]]></Url>
-    </item>
-    <item>
-        <Title><![CDATA[{{ title5 }}]]></Title>
-        <Description><![CDATA[{{ description5 }}]]></Description>
-        <PicUrl><![CDATA[{{ picurl5 }}]]></PicUrl>
-        <Url><![CDATA[{{ url }}]]></Url>
+        <Url><![CDATA[{{ url3 }}]]></Url>
     </item>
 </Articles>
 </xml>
