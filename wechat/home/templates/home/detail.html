@@ -16,19 +16,28 @@
                 padding: 0px 5px;
             }
 
-            .pf li {
+            .pf .lii {
                 padding: 5px 0px;
                 font-size:16px;
             }
+            .detail-top{padding: 0;}
+            .detail-del{background-color: #5bc0de;text-align: center;font-weight: bold;
+                border: 0;border-radius: 0;color: #fff;font-size: 1.6rem;}
+            .detail-img{width: 100%;height: 20rem;border: none;padding: 0;}
+            .img-responsive{width: 100%;height: 100%;}
+            .detail-hotel{border: none;font-weight: bold;}
+            .detail-add{border: none;padding-top:0;padding-bottom: 0;}
+            .detail-address{}
+            .detail-address:active{text-decoration:none;}
+            .detail-address:hover{text-decoration:none}
+
+
             .list-list{padding: 0;margin-bottom: 0;}
             .list-list .list-group-item{border: none;padding: 0;}
-
-
             .top{padding-right: 0;}
             .top-con{padding-left: 0;}
             .img-top{width: 3.2rem;height: 3.2rem}
             .img-main{width: 80px;height: 80px;}
-
             .list-comment{width: 74%;margin: 0 auto}
             .list-content{width: 74%;margin: 0 auto}
             .list-content .col-xs-4{padding: 0;margin-top: 0.8rem}
@@ -36,13 +45,26 @@
         </style>
 </head>
 <body >
-    <div class="container">
+    <div class="detail-top list-group">
+        <div class="list-group-item detail-del" >商家详情</div>
+        <div class="list-group-item detail-img">
+            <img src="{{ hotel.img}}"  alt="..." class="img-responsive" alt="Responsive image">
+        </div>
+         <div class="list-group-item detail-hotel">{{ hotel.name }}</div>
+        <div class="list-group-item detail-add">
+            <span class="glyphicon glyphicon-map-marker"></span>
+            <a class="detail-address" href="http://licong.iok.la:37811/home/line?personpos={{ personpos }}&lng={{ hotel.lng }}&lat={{ hotel.lat }}">
+            {{ hotel.address }}
+        </a>
+        </div>
 
+    </div>
+    <div class="container">
         <div style="float: left;margin-top: 2%;margin-bottom: 2% ">
             <button type="button" onclick="showcomment()" class="btn btn-success">我要评论</button>
         </div>
         <div style="float: right;margin-top: 2%;margin-bottom: 2% ">
-            <button type="button"  class="btn btn-default">我要投诉</button>
+            <button type="button" onclick="complain()" class="btn btn-default">我要投诉</button>
         </div>
         <form id="formcomment" style="display: none" action="" method="post" enctype= "multipart/form-data">
              {% csrf_token %}
@@ -50,13 +72,13 @@
                    <div class="pblockm" id="d1406010801010000002" data-rh-caption="块样式">
                         <br><br><br>
                         <div class="pf">
-                            <div data-rh-score="0" style="float: left">
+                            <div data-rh-score="5" style="float: left">
                                 <span class="title" >我要评分</span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star lii"></span>
+                                <span class="glyphicon glyphicon-star lii"></span>
+                                <span class="glyphicon glyphicon-star lii"></span>
+                                <span class="glyphicon glyphicon-star lii"></span>
+                                <span class="glyphicon glyphicon-star lii"></span>
                                 <span class="tip" id="point"  style="float: right;margin-left: 3px" ></span>
                             </div>
                         </div>
@@ -72,7 +94,9 @@
                  <input type="text" name="useinfo" id="useinfo" value="{{useinfo}}">
                  <input type="text" name="hostid" id="hostid" value="{{hostid}}">
               </div>
-
+              <div style="display: none">
+                  <input name="personpos" value="{{ personspos }}"/>
+              </div>
               <div class="form-group" style="float: left">
                 <label for="commentimg" style="float: left">我要传图</label>
                 <input  style="float: left;margin-left: 20%" type="file" id="commentimg" name="commentimg" multiple="multiple">
@@ -141,7 +165,7 @@
                                            {% ifequal item '1' %}
                                                 <span class="glyphicon glyphicon-star" style="color: orange;font-size:16px;"></span>
                                             {% else %}
-                                                <span class="glyphicon glyphicon-star" style="font-size:16px;"></span>
+                                                <span class="glyphicon glyphicon-star-empty" style="color: orange;font-size:16px;"></span>
                                             {% endifequal %}
                                         {% endfor %}
                                     </div>
@@ -175,6 +199,10 @@
     function hidecomment(){
 
         document.getElementById("formcomment").style.display='none'
+    }
+    function complain(){
+
+        window.location.href = '../../../home/complain?hotelid='+'{{hostid}}'+'&nickname='+'{{nickname}}'
     }
 </script>
 <script>
