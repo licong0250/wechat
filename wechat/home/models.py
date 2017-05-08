@@ -38,3 +38,10 @@ class ApInfo(models.Model):
     lng=models.FloatField("AP经度",blank=False, null = False)
     lat=models.FloatField("AP纬度",max_length=20,blank=False, null = False)
     apmac = models.CharField("AP mac地址",max_length=255,blank=False, null = False)
+
+class Complaintext(models.Model):
+    username=models.CharField(max_length=100, verbose_name='用户名')
+    complaintext=models.TextField(blank=True, verbose_name='投诉内容')
+    complaintime=models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
+    hotelid=models.IntegerField(blank=True,verbose_name='餐厅id')
+    connect=models.CharField(max_length=100, verbose_name='联系方式')

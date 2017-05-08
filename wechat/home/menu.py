@@ -49,7 +49,7 @@ class MenuManager(View):
                   },
                   {
                        "type":"click",
-                       "name":"锡盟WIFI",
+                       "name":"锡市WIFI",
                        "key" : "XM_WIFI"
                   }
                   ]

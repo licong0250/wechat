@@ -38,24 +38,32 @@
         <div id="bdmap" style="width: 100%;height: 20rem;z-index: 3"></div>
     </div>
     <div class="main"></div>
+
    <div class="canyin">
+   <div class="canyin-list row changeorder">
+           <!--<button type="button" class="btn btn-default" onclick="getlocation()">手动定位</button>-->
+           <div  style="float: right;margin-right: 1rem">
+               <button type="button" class="btn btn-info" onclick="changeordergood()">好评优先</button>
+               <button type="button" class="btn btn-info" onclick="changeorderbad()">差评优先</button>
+           </div>
+       </div>
    {% for hotel in hotels_title %}
-       <div class="canyin-list row">
+       <div class="canyin-list row" onclick="openHotelDetail({{ hotel.id }})">
            <div class="col-xs-9">
             <div class="list-group" >
                    <div id="hotels_comment" style="display: none">
                        <span id="star{{ hotel.id }}" >{{hotel.score}}</span>
                    </div>
                     <div class="list-group-item hotelName ">
-                        <a class="con" href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe840f265a71f11b8&redirect_uri=http%3a%2f%2fchaihaiyang.imwork.net%2fstatic%2ftemplates%2fcanyindetail.html%3fid%3d'+{{ hotel.id }}+'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect">
+{#                        <a class="con" href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe840f265a71f11b8&redirect_uri=http%3a%2f%2fchaihaiyang.imwork.net%2fstatic%2ftemplates%2fcanyindetail.html%3fid%3d'+{{ hotel.id }}+'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect">#}
                             {{hotel.name}}
-                        </a>
+{#                        </a>#}
                     </div>
                     <div class="list-group-item comment">
                         <span id="star{{ hotel.id }}s" ></span>{{hotel.score}}分
                         <span >{{hotel.commentlen}}</span>条评论
                     </div>
-                    <div class="list-group-item len">距离</div>
+                    <div class="list-group-item pos" id="{{ hotel.id}}"></div>
                 </div>
                </div>
             <div class="col-xs-3">
@@ -67,78 +75,16 @@
            {% endfor %}
 
 </div>
-    <!--<div id="navi_checkHotel">-->
-        <!--<div class="hotelName list-group">-->
-            <!--<div class="list-group-item" >您当前处于：</div>-->
-            <!--<div class="list-group-item" id="navi_hotelAddress">锡林浩特上海路展览馆旁锡林浩特上海路展览馆旁</div>-->
-        <!--</div>-->
-        <!--<div class="HoteSelect list-group">-->
-            <!--<div class="list-group-item" >请在地图上选择一个餐厅</div>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div id="checkHotel" style="width: 100%;height: 25%;display: none">-->
-        <!--<div class="row">-->
-            <!--<div class="col-xs-8">-->
-                <!--<div class="hotelName list-group">-->
-                    <!--<div class="list-group-item" id="hotelName">内蒙古蒙古丽宫酒店有限公司内蒙古蒙古丽宫酒店有限公司</div>-->
-                    <!--<div class="list-group-item" id="hotelAddress">锡林浩特上海路展览馆旁锡林浩特上海路展览馆旁</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="col-xs-4 list-score">-->
-                <!--<div class="list-group">-->
-                    <!--<div class="score list-group-item" >评分:<span id="score" style="color: red;font-size: 1.6rem;">4.0</span></div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-
-        <!--<div class="row">-->
-            <!--<div class="main">-->
-                <!--<div class="col-xs-6">-->
-                     <!--<div class="list-group">-->
-                        <!--<div class="list-main list-group-item">-->
-                            <!--<span class="glyphicon glyphicon-eye-open"></span>-->
-                            <!--<input class="SearchRoad" id="SearchRoad" type="button" value="查看路线" onclick="ViewRoute()">-->
-
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="col-xs-6">-->
-                    <!--<div class="list-group">-->
-                        <!--<div class="list-main list-group-item">-->
-                            <!--<span class="glyphicon glyphicon-comment"></span>-->
-                            <!--<div class="detailcomment" id="detailcomment">详细信息</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-
-
-
-
-
-
-
 
 </body>
 </html>
 <script type="text/javascript" charset="utf-8">
-
-//    var sro = $("body").scrollTop();
-//    $(body).click(function(){
-//        if(sro > 30){
-//            alert(sro);
-//            $(".canyin-map").hide();
-//            $(".main").hide();
-//        }
-//        })
-
     var hotels={{ hotels_info | safe }}
     console.log(hotels);
+    var data=new Array();
     var startpoint=new BMap.Point();
     var endpoint=new BMap.Point();
-
+    var pos="";
     var map = new BMap.Map("bdmap");
     var point = new BMap.Point(116.331398,39.897445);
 	map.centerAndZoom(point,15);
@@ -149,38 +95,56 @@
 		if(this.getStatus() == BMAP_STATUS_SUCCESS){
             var myIcon = new BMap.Icon("../../../static/img/pos.png",new BMap.Size(29, 26));
 			var mk = new BMap.Marker(r.point,{icon:myIcon});
+            mk.setTitle('mypoint');
 			map.addOverlay(mk);
 			map.panTo(r.point);
+            data.push(mk);
+
             var gc=new BMap.Geocoder();
             gc.getLocation(r.point, function(rs) {
-           var addComp = rs.addressComponents;
-           address = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                 document.getElementById('navi_hotelAddress').innerHTML = address;
-
+                    var addComp = rs.addressComponents;
+                    address = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
              });
 
-			//alert('您的位置：'+r.point.lng+','+r.point.lat);
-            console.log(r.point.lng);
             startpoint= r.point;
-            var sw=new BMap.Point(r.point.lng-0.01, r.point.lat-0.01);
-            var ne=new BMap.Point(r.point.lng+0.02, r.point.lat+0.02);
-            var bound=new BMap.Bounds(sw,ne);
-            console.log(bound);
             for(var i=0;i<hotels.length;i++){
-                var tmp_point=new BMap.Point(hotels[i].posi[0],hotels[i].posi[1])
-                if (bound.containsPoint(tmp_point)){
-                    addMarker(tmp_point,hotels[i].name,hotels[i].id,hotels[i].address,hotels[i].score);
-                }
+                var tmp_point=new BMap.Point(hotels[i].posi[0],hotels[i].posi[1]);
+                if(isinScope(startpoint,tmp_point)){
+                            addMarker(tmp_point,hotels[i]["name"]);
+                        }
+            }
+            var pos  = document.getElementsByClassName("pos");
+            for(var i=0;i<pos.length;i++){
+                        var id=parseInt(pos[i].getAttribute("id"));
+                        for(var j=0;j<hotels.length;j++){
+                                if (id==hotels[j].id){
+                                    var thispos=new BMap.Point(hotels[j].posi[0],hotels[j].posi[1]);
+                                    var distance=getDistance(startpoint,thispos);
+                                    pos[i].innerHTML="距离:"+distance+"m";
+                                }
+                        }
 
             }
-            showHotelList(hotels);
 		}
 		else {
 			alert('failed'+this.getStatus());
 		}
-	},{enableHighAccuracy: true})
-    var center_point=map.getCenter();
-    console.log(center_point);
+	},{enableHighAccuracy: true});
+
+//增加时间监听，点击地图某一个点，将中心点设置在该点的位置
+    map.addEventListener("click", function(e){
+          removeMarker('mypoint');
+          var myIcon = new BMap.Icon("../../../static/img/pos.png",
+                        new BMap.Size(29, 26));
+          var marker = new BMap.Marker(e.point, { icon: myIcon });
+          marker.setTitle('mypoint');
+          map.addOverlay(marker);
+          data.push(marker);
+          map.setCenter(e.point);
+//         alert(e.point.lng + ", " + e.point.lat);
+        });
+
+
     //关于状态码
 	//BMAP_STATUS_SUCCESS	检索成功。对应数值“0”。
 	//BMAP_STATUS_CITY_LIST	城市列表。对应数值“1”。
@@ -192,76 +156,56 @@
 	//BMAP_STATUS_SERVICE_UNAVAILABLE	服务不可用。对应数值“7”。(自 1.1 新增)
 	//BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)
 
-    function addMarker(point,text,hotelid,address,score){
-      var label = new BMap.Label(text,{offset:new BMap.Size(-5,-20)});
-      label.setStyle({
-           "fontSize":"13px",
-           "border":"0"
-      })
+    function addMarker(point,text){
+
+      var label = new BMap.Label(text,{offset:new BMap.Size(25,0)});
+      label.setStyle({padding:"0px", fontSize : "16px", border:"0"});
       var myIcon = new BMap.Icon("../../../static/img/cater.png",new BMap.Size(29, 26));
 	  var marker = new BMap.Marker(point,{icon:myIcon});
       marker.setLabel(label);
 	  map.addOverlay(marker);
-      addClickHandler(marker,text,hotelid,address,score);
 	}
-    function addClickHandler(marker,text,hotelid,address,score){
-		marker.addEventListener("click",function(e){
-            SetMarkerImgUrl();
-            endpoint=marker.getPosition();
-            walking.clearResults();
-			openDiv(marker,text,hotelid,address,score);
-                }
-		);
-	}
-	function openDiv(marker,text,hotelid,address,score){
-        document.getElementById("bdmap").style.height= 75+"%";
-		document.getElementById('checkHotel').style.display="block";
-		document.getElementById('navi_checkHotel').style.display="none";
-        var newIcon=marker.getIcon();
-        newIcon.setImageUrl("../../../static/img/test2.png");
-//{#        var newIcon  = new BMap.Icon("../../../static/img/test2.png",new BMap.Size(-29,-26));#}
-        marker.setIcon(newIcon);
-        document.getElementById('hotelName').innerHTML = marker.getPosition().lng;
-        document.getElementById('hotelName').innerHTML = text;
-        document.getElementById('hotelAddress').innerHTML = address;
-        document.getElementById('score').innerHTML = score;
-        console.log(text);
-        console.log(typeof text);
-        document.getElementById('detailcomment').innerHTML = '<a class="con" href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe840f265a71f11b8&redirect_uri=http%3a%2f%2fchaihaiyang.imwork.net%2fstatic%2ftemplates%2fcanyindetail.html%3fid%3d'+2+'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect">查看详情</a>';
-	}
-    function ViewRoute(){
-
-        walking.search(startpoint,endpoint);
+     function openHotelDetail(hotelid){
+        pos= (startpoint.lng).toString()+','+(startpoint.lat).toString()
+        pos=pos+"$"+hotelid;
+        window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe840f265a71f11b8&redirect_uri=http%3a%2f%2fchaihaiyang.imwork.net%2fstatic%2ftemplates%2fcanyindetail.html%3fid%3d"+pos+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
     }
-    function SetMarkerImgUrl(){
-        for (var i = 0; i < map.getOverlays().length; i++) {
-                if (map.getOverlays()[i].toString() == "[object Marker]"){
 
-                    var icon=map.getOverlays()[i].getIcon();
-                    if(icon.imageUrl=="../../../static/img/test2.png"){
-                        icon.setImageUrl("../../../static/img/cater.png");
-                        map.getOverlays()[i].setIcon(icon);
+    function getDistance(startpoint,thispos){
+        distance=(map.getDistance(startpoint,thispos)).toFixed(2);
+        return distance;
+    }
+    function isinScope(centerpoint,judgepoint){
+        var ws=new BMap.Point(centerpoint.lng-0.02,centerpoint.lat-0.02);
+	    var en=new BMap.Point(centerpoint.lng+0.02,centerpoint.lat+0.02);
+	    var bound=new BMap.Bounds(ws,en);
+	    if (bound.containsPoint(judgepoint)){
+	        return true;}
+ 
+    }
+
+    function getlocation(){
+        var point = map.getCenter();
+        console.log(point);
+        console.log(point.lng);
+        var newpoint = BMap.Point(131.58789949,31.24916171);
+        map.setCenter('上海');
+        map.panTo(point,newpoint)
+
+    }
+
+    //移除单个标记
+        function removeMarker(name){
+
+               for(var i=0;i<data.length;i++){
+
+                   if (data[i].getTitle()==name) {
+
+                         map.removeOverlay(data[i]);
                     }
-                }
-
-            }
-    }
-
-
-    function showHotelList(hotels){
-        for(var i=0;i<hotels.length;i++){
-
-            var hotelInfo="<div class='row'><div class='col-xs-8'><div class='hotelName list-group'><div class='list-group-item hotelName' ></div> <div class='list-group-item hotelAddress'></div> </div></div><div class='col-xs-4 list-score'><div class='list-group'><div class='score list-group-item' id='score'>评分:<span style='color: red;font-size: 1.6rem;'></span></div></div></div></div>"
-             $(".hotelName").attr('id','hotel'+i);
-             $(".hotelAddress").attr('id','address'+i);
-             var x=document.getElementById("hotel"+i);
-            console.log(x);
-            console.log(hotels[i].name);
-             x.innerHTML(hotels[i].name);
-            $("#checkHotel").append(hotelInfo);
+               }
+                        //map.removeOverlay(myLable);
         }
-    }
-
 </script>
 
 <script>
@@ -273,11 +217,22 @@
                 }
 
     }
-$.fn.raty.defaults.path = '../../../static/raty-master/lib/images/';
-function showstar(score,id){
-    var tag = '#'+ id +'s' ;
-    $(tag).raty({ readOnly: true, score: score });
+    $.fn.raty.defaults.path = '../../../static/raty-master/lib/images/';
+    function showstar(score,id){
 
-}
+        var tag = '#'+ id +'s' ;
+        $(tag).raty({ readOnly: true, score: score });
+
+    }
 </script>
+
+<script>
+    function changeorderbad(){
+        window.location.href = '../../../home/canyin?order=1'
+    }
+    function changeordergood(){
+        window.location.href = '../../../home/canyin?order=0'
+    }
+</script>
+
 

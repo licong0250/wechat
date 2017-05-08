@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../static/assets/css/base.css">
+    <script src="../../../static/assets/js/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../../../static/assets/js/zepto.min.js"></script>
+    <style>
+
+            .list-list {border: none;padding: 0;}
+
+            .list-content .col-xs-4{padding: 0;margin-top: 0.8rem}
+            .list-content .list-group-item{border: none;padding: 0.1rem 0 0 0;}
+        </style>
+    <title>我要投诉</title>
+</head>
+<body>
+
+    <div class="container">
+         <form id="formcomment"  action="" method="post" >
+             {% csrf_token %}
+
+               <br/><br/>
+              <div style="margin-bottom: 1rem">
+                    <span style="font-size: large">请输入您的投诉建议:</span>
+              </div>
+
+              <div class="form-group">
+                <textarea id="commenttext" name="text" id="text" class="form-control" rows="8" placeholder=""></textarea>
+              </div>
+              <div style="display: none">
+                 <input type="text" name="inputpoint" id="inputpoint">
+                 <input type="text" name="nickname" id="nickname" value="{{nickname}}">
+                 <input type="text" name="useinfo" id="useinfo" value="{{useinfo}}">
+                 <input type="text" name="hotelid" id="hotelid" value="{{hotelid}}">
+              </div>
+              <button type="submit"   class="btn btn-success" style="float: right">提交</button>
+        </form>
+    </div>
+<script>
+        function submitfun(){
+            nickname = $.trim($("#nickname").val());
+            hotelid = $.trim($("#hotelid").val());
+            text = $.trim($("#text").val());
+            $.ajax({
+                url:"./home/complaintext/",
+                type:"POST",
+                data:{nickname:nickname,hotelid:hotelid,text:text},
+                success:function(data) {
+                    if (data) {
+                        alert("操作成功");
+
+                    }
+                },
+                error:function(data){
+
+                        alert("失败");
+
+                    }
+
+                });
+        }
+</script>
+</body>
+</html>

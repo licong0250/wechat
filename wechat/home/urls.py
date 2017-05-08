@@ -32,4 +32,7 @@ urlpatterns = [
     url(r'^xlht/', views.xlht,name='xlht'),
     url(r'^star/', views.star,name='star'),
     url(r'^addhotelimg/', views.addhotelimg,name='addhotelimg'),
+    url(r'^line/', views.line,name='line'),
+    url(r'^complain/', views.complain,name='complain'),
+    url(r'^complaintext/', views.complaintext,name='complaintext'),
 ]

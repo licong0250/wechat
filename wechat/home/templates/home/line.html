@@ -1,0 +1,88 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+		body, html {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+	</style>
+    <link rel="stylesheet" type="text/css" href="../../../static/assets/css/base.css">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css">
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=MFNdr8DMmQRO6xrbpsctDvnjb9UjbjT8"></script>
+	<title>查看路线</title>
+    <style>
+        .lookroute{width: 95%;margin: 0 auto;}
+       .lookroute .col-xs-4 button{display: block;width: 100%;}
+    </style>
+</head>
+<body>
+
+	<div id="allmap" style="height:51rem;margin-bottom: 2.5rem;"></div>
+    <div class="lookroute row">
+        <div class=" col-xs-4">
+            <button class="btn btn-success" id="bus">公交</button>
+        </div>
+        <div class=" col-xs-4">
+            <button class="btn btn-success" id="car">驾车</button>
+        </div>
+        <div class=" col-xs-4">
+            <button class="btn btn-success" id="work">步行</button>
+        </div>
+    </div>
+	<div id="r-result"></div>
+</body>
+ <script type="text/javascript">
+//     var map = new BMap.Map("bdmap");
+//    var point = new BMap.Point(116.331398,39.897445);
+//	map.centerAndZoom(point,15);
+     parm={{ parm|safe }}
+     posonpos=parm.personpos;
+     lng=parm.lng;
+     lat=parm.lat;
+     var map = new BMap.Map("allmap");
+     var posonpoint=new BMap.Point(parseFloat(posonpos.split(',')[0]),parseFloat(posonpos.split(',')[1]));
+     var hotelpoint=new BMap.Point(parseFloat(lng),parseFloat(lat));
+     var myIcon = new BMap.Icon("../../../static/img/pos.png",new BMap.Size(29, 26));
+     var mk = new BMap.Marker(posonpoint,{icon:myIcon});
+     map.addOverlay(mk);
+     var mIcon = new BMap.Icon("../../../static/img/cater.png",new BMap.Size(29, 26));
+     var marker = new BMap.Marker(hotelpoint,{icon:mIcon});
+     map.addOverlay(marker);
+     map.centerAndZoom(posonpoint,15);
+     map.enableScrollWheelZoom(true);
+
+     document.getElementById("bus").onclick=function(){
+        map.clearOverlays();
+        document.getElementById("r-result").innerHTML='';
+        document.getElementById("allmap").style.height=20+'rem';
+        var transit = new BMap.TransitRoute(map, {
+
+            renderOptions: {map: map,panel: "r-result", autoViewport: true}
+
+        });
+        transit.search(posonpoint, hotelpoint);
+     }
+
+     document.getElementById("car").onclick=function(){
+        map.clearOverlays();
+        document.getElementById("r-result").innerHTML='';
+        document.getElementById("allmap").style.height=20+'rem';
+        var driving = new BMap.DrivingRoute(map, {
+
+            renderOptions:{map: map,panel: "r-result", autoViewport: true}
+        });
+        driving.search(posonpoint, hotelpoint);
+     }
+
+     document.getElementById("work").onclick=function(){
+        map.clearOverlays();
+        document.getElementById("r-result").innerHTML='';
+        document.getElementById("allmap").style.height=20+'rem';
+         var walking = new BMap.WalkingRoute(map, {
+
+             renderOptions:{map: map,panel: "r-result", autoViewport: true}
+         });
+         walking.search(posonpoint, hotelpoint);
+     }
+
+ </script>
+</html>

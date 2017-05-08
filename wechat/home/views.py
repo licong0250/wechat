@@ -2,6 +2,7 @@
 from datetime import datetime
 import random
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
@@ -11,7 +12,7 @@ from imgtest import imgtest
 import time
 import hashlib
 from menu import MenuManager
-from models import Hotel,Comment,ApInfo
+from models import Hotel,Comment,ApInfo, Complaintext
 import json
 import requests
 APPID = 'wxe840f265a71f11b8'
@@ -153,13 +154,23 @@ def getuserinfo(code):
 def canyindetail(request):
     if request.method == "GET":
         code = request.GET.get('code')
-        hostid = request.GET.get('id')
-        print code,"id:",id
+        parms = request.GET.get('id')
+        hostid = parms.split("$")[1]
+        pos = parms.split("$")[0]
+        print code,"id:",hostid
+        print "pos",pos
 
-        useinfo = getuserinfo(code)
-        print "用户信息：",useinfo["nickname"]
-        print "用户信息：",useinfo["headimgurl"]
         context = {}
+        try:
+            useinfo = getuserinfo(code)
+
+            print "用户信息：",useinfo["nickname"]
+            print "用户信息：",useinfo["headimgurl"]
+            context["nickname"] = useinfo["nickname"]
+            context["useinfo"] = useinfo
+        except:
+            print "useinfo error"
+
         commentlist = Comment.objects.filter(hotel_id=hostid)
         commentinfo = []
         if commentlist:
@@ -177,13 +188,14 @@ def canyindetail(request):
         hotel = Hotel.objects.filter(id=hostid)
         if hotel:
             context["hotelpoint"] = hotel[0].avr_score
+            context["hotel"] = hotel[0]
         context["commentlist"] = commentlist
         context["commentlistlen"] = len(commentlist)
         context["item_list"] = [1,2,3,4]
-        context["nickname"] = useinfo["nickname"]
-        context["useinfo"] = useinfo
         context["hostid"] = hostid
         context["commentinfo"] = commentinfo
+        context["personpos"] = pos
+
 
         numpoint = []
         for temp in ['10000','11000','11100','11110','11111']:
@@ -193,15 +205,17 @@ def canyindetail(request):
                 numpoint.append(0)
             print "getnumforpoint(temp):",getnumforpoint(hostid,temp)
         context["numpoint"] = numpoint
+
         return render(request,'home/detail.html',context)
     if request.method == "POST":
         print "I am POST "
         hostid = request.POST.get("hostid")
         useinfo = request.POST.get("useinfo")
         nickname = request.POST.get("nickname")
+        personpos = request.POST.get("personpos")
         point = request.POST.get("inputpoint")[:1]
         if not point:
-            point = 0
+            point = 5
         commenttext = request.POST.get("commenttext")
         images = request.FILES.getlist('commentimg')
         imagesurl = ''
@@ -245,12 +259,15 @@ def canyindetail(request):
         #传到前端的数据  评论
         context = {}
         hotel = Hotel.objects.filter(id=hostid)
+        if hotel:
+             context["hotel"] = hotel[0]
         context["commentlist"] = commentlist
         context["commentlistlen"] = len(commentlist)
         context["nickname"] = eval(useinfo)["nickname"]
         context["useinfo"] = useinfo
         context["hostid"] = hostid
         context["commentinfo"] = commentinfo
+        context["personpos"] = personpos
 
         numpoint = []
         sumpoint = 0
@@ -310,7 +327,15 @@ def checktoken(token,openid,refresh_token):
 
 def canyin(request):
     hotels_info=[]
-    hotels=Hotel.objects.all().order_by('-avr_score')
+    order = request.GET.get('order','0')
+    alist = request.GET.get('alist','null')
+    print "alist:",alist
+    order = str(order)
+    print "order:",order,type(order)
+    if order == '0':
+        hotels=Hotel.objects.all().order_by('-avr_score')
+    else:
+        hotels=Hotel.objects.all().order_by('avr_score')
     for hotel in hotels:
         tmp_info={}
         tmp_info["posi"]=[]
@@ -327,12 +352,12 @@ def canyin(request):
         tmp_info["posi"]=tmp_posi
         hotelimg = hotel.img.encode('utf-8').split(';')
         if hotel.img != '':
-            print "有图片"
+            # print "有图片"
             tmp_info["img"] = hotelimg[0]
         else:
-            print "无图片"
+            # print "无图片"
             tmp_info["img"] = '../../../static/comm_images/COMMENT20170428051333849860玉石.jpg'
-        print "6666666666",tmp_info["img"]
+        # print "6666666666",tmp_info["img"]
         comment = Comment.objects.filter(hotel=hotel)
         tmp_info["commentlen"] = comment.count()
         hotels_info.append(tmp_info)
@@ -386,6 +411,34 @@ def xlht(request):
 def star(request):
     return render(request,'home/star.html')
 
+def complain(request):
+    return render(request,'home/complain.html')
+
+@csrf_exempt
+def complaintext(request):
+    if request.method == "GET":
+        hotelid = request.GET.get('hotelid')
+        nickname = request.GET.get('nickname')
+        print hotelid,nickname
+        context = {}
+        context["hotelid"] = hotelid
+        context["nickname"] = nickname
+
+        return render(request,'home/complaintext.html',context)
+    if request.method == "POST":
+        hotelid = request.POST.get('hotelid')
+        nickname = request.POST.get('nickname')
+        text = request.POST.get('text')
+        print hotelid,nickname,text
+        complain = Complaintext()
+        complain.hotelid = hotelid
+        complain.username = nickname
+        complain.complaintext = text
+        complain.save()
+        result = {}
+        result['res'] = 1
+        return render(request,'home/complaintext.html')
+
 def chat(msg):
     import sys
     reload(sys)
@@ -411,3 +464,15 @@ def showAps(request):
     context["apInfo"]=json.dumps(ap_list)
     return  render(request,'home/apmap.html',context)
 
+def line(request):
+    personpos = request.GET.get('personpos')
+    lng = request.GET.get('lng')
+    lat = request.GET.get('lat')
+    print personpos,lng,lat
+    cont = {}
+    cont["personpos"] = personpos
+    cont["lng"] = lng
+    cont["lat"] = lat
+    context = {}
+    context["parm"] = json.dumps(cont)
+    return render(request,'home/line.html',context)
