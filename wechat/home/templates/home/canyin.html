@@ -22,45 +22,49 @@
         .con{color: #000;font-weight: bold;}
         .con:active{text-decoration:none;}
         .con:hover{text-decoration:none}
-        .main{width: 100%;height: 20rem;}
+        .main{width: 100%;height: 30rem;}
         .canyin{width: 85%;margin: 0 auto;}
         .canyin-list{border-bottom: 1px solid #e2e2e2;padding-bottom: 1rem;padding-top: 1rem;}
         .canyin .list-group-item{border: none;padding: 0.3rem 0.3rem;}
         .canyin-image{width: 8rem;height: 8rem;display: block;}
         .canyin .col-xs-9{padding: 0;}
         .canyin .col-xs-3{padding: 0;}
+
+        .changeorder{background: white;}
+        .wrap{height: 19px;margin-left: 30px;background-color: #fff;
+            color: #000;border-radius: 5px;padding-bottom: 25px;}
     </style>
 
 </head>
 
 <body>
     <div class="canyin-map">
-        <div id="bdmap" style="width: 100%;height: 20rem;z-index: 3"></div>
+        <div id="bdmap" style="width: 100%;height: 23rem;z-index: 3"></div>
+        <div class="canyin-list row changeorder">
+           <div  style="float: left;margin-left: 2rem">
+               <button type="button" class="btn btn-info" onclick="changeorderdistance()">距离优先</button>
+               <button type="button" class="btn btn-info" onclick="changeordergood()">好评优先</button>
+               <button type="button" class="btn btn-info" onclick="changeorderbad()">差评优先</button>
+            </div>
+        </div>
     </div>
     <div class="main"></div>
 
    <div class="canyin">
-   <div class="canyin-list row changeorder">
-           <!--<button type="button" class="btn btn-default" onclick="getlocation()">手动定位</button>-->
-           <div  style="float: right;margin-right: 1rem">
-               <button type="button" class="btn btn-info" onclick="changeordergood()">好评优先</button>
-               <button type="button" class="btn btn-info" onclick="changeorderbad()">差评优先</button>
-           </div>
-       </div>
    {% for hotel in hotels_title %}
        <div class="canyin-list row" onclick="openHotelDetail({{ hotel.id }})">
            <div class="col-xs-9">
             <div class="list-group" >
                    <div id="hotels_comment" style="display: none">
-                       <span id="star{{ hotel.id }}" >{{hotel.score}}</span>
+                       <span id="star{{ hotel.id }}" >{{hotel.avr_score}}</span>
+                       <span id="lng1" >{{localpointlng}}</span>
+                       <span id="lat1" >{{localpointlat}}</span>
                    </div>
                     <div class="list-group-item hotelName ">
-{#                        <a class="con" href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe840f265a71f11b8&redirect_uri=http%3a%2f%2fchaihaiyang.imwork.net%2fstatic%2ftemplates%2fcanyindetail.html%3fid%3d'+{{ hotel.id }}+'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect">#}
                             {{hotel.name}}
-{#                        </a>#}
                     </div>
                     <div class="list-group-item comment">
-                        <span id="star{{ hotel.id }}s" ></span>{{hotel.score}}分
+                        <span id="star{{ hotel.id }}s" ></span>{{hotel.avr_score}}分
                         <span >{{hotel.commentlen}}</span>条评论
                     </div>
                     <div class="list-group-item pos" id="{{ hotel.id}}"></div>
@@ -86,33 +90,38 @@
     var endpoint=new BMap.Point();
     var pos="";
     var map = new BMap.Map("bdmap");
-    var point = new BMap.Point(116.331398,39.897445);
+
+    var point = new BMap.Point(116.059489,43.939966);
 	map.centerAndZoom(point,15);
     map.enableScrollWheelZoom(true);
     var walking = new BMap.WalkingRoute(map, {renderOptions:{map: map, autoViewport: true}});
 	var geolocation = new BMap.Geolocation();
 	geolocation.getCurrentPosition(function(r){
 		if(this.getStatus() == BMAP_STATUS_SUCCESS){
-            var myIcon = new BMap.Icon("../../../static/img/pos.png",new BMap.Size(29, 26));
-			var mk = new BMap.Marker(r.point,{icon:myIcon});
+
+            var lng = $('#lng1').text();
+            var lat = $('#lat1').text();
+            if (lng){
+                newpoint = new BMap.Point(lng,lat);
+            }else{
+                newpoint = r.point;
+            }
+            var myIcon = new BMap.Icon("../../../static/img/me.png",new BMap.Size(29,42));
+			var mk = new BMap.Marker(newpoint,{icon:myIcon});
             mk.setTitle('mypoint');
 			map.addOverlay(mk);
-			map.panTo(r.point);
+			map.panTo(newpoint);
             data.push(mk);
 
             var gc=new BMap.Geocoder();
-            gc.getLocation(r.point, function(rs) {
+            gc.getLocation(newpoint, function(rs) {
                     var addComp = rs.addressComponents;
                     address = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
              });
 
-            startpoint= r.point;
-            for(var i=0;i<hotels.length;i++){
-                var tmp_point=new BMap.Point(hotels[i].posi[0],hotels[i].posi[1]);
-                if(isinScope(startpoint,tmp_point)){
-                            addMarker(tmp_point,hotels[i]["name"]);
-                        }
-            }
+            startpoint= newpoint;
+            addNearbyMarkers(hotels,startpoint);
+
             var pos  = document.getElementsByClassName("pos");
             for(var i=0;i<pos.length;i++){
                         var id=parseInt(pos[i].getAttribute("id"));
@@ -120,11 +129,18 @@
                                 if (id==hotels[j].id){
                                     var thispos=new BMap.Point(hotels[j].posi[0],hotels[j].posi[1]);
                                     var distance=getDistance(startpoint,thispos);
-                                    pos[i].innerHTML="距离:"+distance+"m";
+                                    if(distance<1001){
+                                        pos[i].innerHTML="距离:"+distance+"m";
+                                    }
+                                    else{
+                                        pos[i].innerHTML="距离:"+(distance/1000).toFixed(2)+"km";
+                                    }
+
                                 }
                         }
 
             }
+
 		}
 		else {
 			alert('failed'+this.getStatus());
@@ -133,18 +149,33 @@
 
 //增加时间监听，点击地图某一个点，将中心点设置在该点的位置
     map.addEventListener("click", function(e){
-          removeMarker('mypoint');
-          var myIcon = new BMap.Icon("../../../static/img/pos.png",
-                        new BMap.Size(29, 26));
+          map.clearOverlays();
+          var myIcon = new BMap.Icon("../../../static/img/me.png",
+                        new BMap.Size(29,42));
           var marker = new BMap.Marker(e.point, { icon: myIcon });
           marker.setTitle('mypoint');
+          //var point =new BMap.Point(116.091756,43.938876);
           map.addOverlay(marker);
           data.push(marker);
-          map.setCenter(e.point);
-//         alert(e.point.lng + ", " + e.point.lat);
+          map.panTo(e.point);
+          map.centerAndZoom(e.point,15);
+          map.enableScrollWheelZoom(true);
+          addNearbyMarkers(hotels, e.point);
+          getIdListByDistance(hotels,startpoint);
+          startpoint= e.point;
+          var id_distance_order=(getIdListByDistance(hotels, e.point)).toString();
+          var localpointlng = startpoint.lng;
+          var localpointlat = startpoint.lat;
+          window.location.href = '../../../home/canyin?order=2&id_distance='+id_distance_order+'&localpointlng='+localpointlng+'&localpointlat='+localpointlat;
         });
 
+    function changeorderdistance(){
 
+        var id_distance = getIdListByDistance(hotels,startpoint);
+        var localpointlng = startpoint.lng;
+        var localpointlat = startpoint.lat;
+        window.location.href = '../../../home/canyin?order=2&id_distance='+id_distance+'&localpointlng='+localpointlng+'&localpointlat='+localpointlat;
+    }
     //关于状态码
 	//BMAP_STATUS_SUCCESS	检索成功。对应数值“0”。
 	//BMAP_STATUS_CITY_LIST	城市列表。对应数值“1”。
@@ -156,15 +187,44 @@
 	//BMAP_STATUS_SERVICE_UNAVAILABLE	服务不可用。对应数值“7”。(自 1.1 新增)
 	//BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)
 
-    function addMarker(point,text){
+    function addNearbyMarkers(hotels,startpoint){
 
+        for(var i=0;i<hotels.length;i++){
+            var tmp_point=new BMap.Point(hotels[i].posi[0],hotels[i].posi[1]);
+            if(isinScope(startpoint,tmp_point)){
+                addMarker(tmp_point,hotels[i]["name"]);
+            //var hote = hotels[i]["name"].length;
+            //console.log(hote);
+
+            }
+        }
+         $(".BMapLabel").wrap("<div class='wrap'></div>");
+         $(".BMapLabel").css({"left":"32px"});
+          $(".wrap").each(function(){
+              console.log("111::"+ $(this).text());
+              //console.log("222::"+ $(this).text().length);
+              var bmap = $(this).text().length*17+"px";
+              console.log(bmap);
+              if(bmap){
+                  $(this).width(bmap);
+              }
+            });
+
+    }
+
+    function addMarker(point,text){
       var label = new BMap.Label(text,{offset:new BMap.Size(25,0)});
       label.setStyle({padding:"0px", fontSize : "16px", border:"0"});
-      var myIcon = new BMap.Icon("../../../static/img/cater.png",new BMap.Size(29, 26));
+      var myIcon = new BMap.Icon("../../../static/img/dingwei.png",new BMap.Size(30, 39));
 	  var marker = new BMap.Marker(point,{icon:myIcon});
       marker.setLabel(label);
 	  map.addOverlay(marker);
+
+
+
 	}
+
+
      function openHotelDetail(hotelid){
         pos= (startpoint.lng).toString()+','+(startpoint.lat).toString()
         pos=pos+"$"+hotelid;
@@ -175,37 +235,44 @@
         distance=(map.getDistance(startpoint,thispos)).toFixed(2);
         return distance;
     }
+
+    ///
+    function getIdListByDistance(hotels,startpoint){
+        var idlist=[];
+        var tmplist=[];
+        for(var j=0;j<hotels.length;j++){
+            var thispos=new BMap.Point(hotels[j].posi[0],hotels[j].posi[1]);
+            var distance=getDistance(startpoint,thispos);
+            tmpelem={};
+            tmpelem["pos"]=hotels[j].posi;
+            tmpelem["distance"]=distance;
+            tmpelem["id"]=hotels[j].id;
+            tmplist.push(tmpelem);
+        }
+        tmplist.sort(function(a,b){
+            return a.distance-b.distance});
+        for(var i=0;i<tmplist.length;i++){
+            idlist.push(tmplist[i].id);
+            //console.log(tmplist[i].distance,tmplist[i].id);
+        }
+        return idlist;
+    }
+
+    ///judge if in scope
     function isinScope(centerpoint,judgepoint){
         var ws=new BMap.Point(centerpoint.lng-0.02,centerpoint.lat-0.02);
 	    var en=new BMap.Point(centerpoint.lng+0.02,centerpoint.lat+0.02);
 	    var bound=new BMap.Bounds(ws,en);
 	    if (bound.containsPoint(judgepoint)){
 	        return true;}
- 
-    }
-
-    function getlocation(){
-        var point = map.getCenter();
-        console.log(point);
-        console.log(point.lng);
-        var newpoint = BMap.Point(131.58789949,31.24916171);
-        map.setCenter('上海');
-        map.panTo(point,newpoint)
-
-    }
-
-    //移除单个标记
-        function removeMarker(name){
-
-               for(var i=0;i<data.length;i++){
-
-                   if (data[i].getTitle()==name) {
-
-                         map.removeOverlay(data[i]);
-                    }
-               }
-                        //map.removeOverlay(myLable);
+        else {
+            return false;
         }
+
+    }
+
+
+
 </script>
 
 <script>
@@ -233,6 +300,7 @@
     function changeordergood(){
         window.location.href = '../../../home/canyin?order=0'
     }
+
 </script>
 
 

@@ -329,11 +329,24 @@ def canyin(request):
     hotels_info=[]
     order = request.GET.get('order','0')
     alist = request.GET.get('alist','null')
-    print "alist:",alist
+    id_distance = request.GET.get('id_distance','null')
+    print "alist:",alist,"id_distance:",id_distance
     order = str(order)
     print "order:",order,type(order)
+    context={}
     if order == '0':
         hotels=Hotel.objects.all().order_by('-avr_score')
+    elif order == '2':
+        localpointlng = request.GET.get('localpointlng')
+        localpointlat = request.GET.get('localpointlat')
+        context["localpointlng"]=localpointlng
+        context["localpointlat"]=localpointlat
+        hotelslist = []
+        newlist = eval('['+id_distance+']')
+        print newlist,type(newlist)
+        for templi in newlist:
+            hotelslist.append(Hotel.objects.get(id=int(templi)))
+        hotels = hotelslist
     else:
         hotels=Hotel.objects.all().order_by('avr_score')
     for hotel in hotels:
@@ -344,7 +357,7 @@ def canyin(request):
         tmp_info["score"]=None
         tmp_info["name"]=hotel.name.encode('utf-8')
         tmp_info["address"]=hotel.address.encode('utf-8')
-        tmp_info["score"]=float(hotel.avr_score)
+        tmp_info["avr_score"]=float(hotel.avr_score)
         tmp_info["id"]=int(hotel.id)
         tmp_posi=[]
         tmp_posi.append(hotel.lng)
@@ -362,10 +375,10 @@ def canyin(request):
         tmp_info["commentlen"] = comment.count()
         hotels_info.append(tmp_info)
 
-    context={}
-    print hotels_info,type(hotels_info)
+
+    # print hotels_info,type(hotels_info)
     context["hotels_info"]=json.dumps(hotels_info)
-    context["hotels_title"]=hotels_info
+    context["hotels_title"]=hotels
     return render(request,'home/canyin.html',context)
 @csrf_exempt
 def addhotelimg(request):
