@@ -427,6 +427,12 @@ def star(request):
 def complain(request):
     return render(request,'home/complain.html')
 
+def wenticanyin(request):
+    hotelslist = Hotel.objects.filter(id__lt=7)
+    context = {}
+    context["hotels_title"] = hotelslist
+    return render(request,'home/wenticanyin.html',context)
+
 @csrf_exempt
 def complaintext(request):
     if request.method == "GET":

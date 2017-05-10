@@ -35,4 +35,5 @@ urlpatterns = [
     url(r'^line/', views.line,name='line'),
     url(r'^complain/', views.complain,name='complain'),
     url(r'^complaintext/', views.complaintext,name='complaintext'),
+    url(r'^wenticanyin/', views.wenticanyin,name='wenticanyin'),
 ]

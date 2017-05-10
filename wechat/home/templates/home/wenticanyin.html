@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head >
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width"/>
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="stylesheet" type="text/css" href="http://121.40.58.147/static/css/list.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/assets/css/base.css">
+<link rel="stylesheet" type="text/css" href="../../../static/bootstrap/css/bootstrap.css">
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=MFNdr8DMmQRO6xrbpsctDvnjb9UjbjT8"></script>
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script><!--调用jQuery-->
+<script type="text/javascript" src="../../../static/assets/js/zepto.min.js" ></script>
+<link rel="stylesheet" href="../../../static/raty-master/lib/jquery.raty.css">
+<script src="../../../static/raty-master/lib/jquery.raty.js"></script>
+    <title>问题餐厅排行榜</title>
+    <style type="text/css">
+        *{font-family: "微软雅黑";}
+        body, html {width: 100%;height: 100%;max-width: 800px;margin: 0 auto;position: relative}
+        .canyin-map{position: fixed;top: 0;left: 0;width: 100%;height: 20rem;z-index: 3}
+        .con{color: #000;font-weight: bold;}
+        .con:active{text-decoration:none;}
+        .con:hover{text-decoration:none}
+        .main{width: 100%;height: 30rem;}
+        .canyin{width: 85%;margin: 0 auto;}
+        .canyin-list{border-bottom: 1px solid #e2e2e2;padding-bottom: 1rem;padding-top: 1rem;}
+        .canyin .list-group-item{border: none;padding: 0.3rem 0.3rem;}
+        .canyin-image{width: 8rem;height: 8rem;display: block;}
+        .canyin .col-xs-9{padding: 0;}
+        .canyin .col-xs-3{padding: 0;}
+
+        .changeorder{background: white;}
+        .wrap{height: 19px;margin-left: 30px;background-color: #fff;
+            color: #000;border-radius: 5px;padding-bottom: 25px;}
+    </style>
+</head>
+<body>
+
+<div class="canyin">
+   {% for hotel in hotels_title %}
+       <div class="canyin-list row" onclick="openHotelDetail({{ hotel.id }})">
+           <div class="col-xs-9">
+            <div class="list-group" >
+                   <div id="hotels_comment" style="display: none">
+                       <span id="star{{ hotel.id }}" >{{hotel.avr_score}}</span>
+                       <span id="lng1" >{{localpointlng}}</span>
+                       <span id="lat1" >{{localpointlat}}</span>
+                   </div>
+                    <div class="list-group-item hotelName ">
+                            {{hotel.name}}
+                    </div>
+                    <div class="list-group-item comment">
+                        <span id="star{{ hotel.id }}s" style="font-weight: 800" >存在的问题：</span><br>
+                        <span>{{hotel.exitQnote}}</span>
+                    </div>
+                    <div class="list-group-item pos" id="{{ hotel.id}}"></div>
+                </div>
+               </div>
+            <div class="col-xs-3">
+                <div class="list-group">
+                    <img src="{{ hotel.img }}"  alt="..." class="canyin-image img-responsive img-main" alt="Responsive image">
+                </div>
+               </div>
+           </div>
+           {% endfor %}
+
+</div>
+</body>
+</html>
