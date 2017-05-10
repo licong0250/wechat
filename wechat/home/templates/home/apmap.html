@@ -28,7 +28,7 @@
     for (var i=0;i<aps.length;i++){
         var point=new BMap.Point(aps[i][0],aps[i][1]);
         pp.push(point);
-        var icon = new BMap.Icon('../../../static/img/wifi_pic.png', new BMap.Size(26, 24));
+        var icon = new BMap.Icon('../../../static/img/wifi.png', new BMap.Size(33,46));
         var mkr = new BMap.Marker(point, {
                     icon: icon});
         var label = new BMap.Label(aps[i][2],{offset:new BMap.Size(20,-10)});
