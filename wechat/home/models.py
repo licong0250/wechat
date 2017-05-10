@@ -11,6 +11,8 @@ class Hotel(models.Model):
     introduce=models.TextField(blank=True,verbose_name='简介')
     avr_score=models.FloatField(verbose_name='评分',default=5.0)
     img=models.CharField(max_length=2048,blank=True)
+    phone = models.CharField('电话号码', max_length=100, blank=True, null=True)
+    exitQnote = models.CharField('存在的问题', max_length=2048, blank=True, null=True)
 
     def __unicode__(self):
         return self.name

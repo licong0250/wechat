@@ -29,7 +29,7 @@
         .canyin-image{width: 8rem;height: 8rem;display: block;}
         .canyin .col-xs-9{padding: 0;}
         .canyin .col-xs-3{padding: 0;}
-
+        .baidu-maps label {  max-width: none;  }
         .changeorder{background: white;}
         .wrap{height: 19px;margin-left: 30px;background-color: #fff;
             color: #000;border-radius: 5px;padding-bottom: 25px;}
@@ -39,12 +39,13 @@
 
 <body>
     <div class="canyin-map">
-        <div id="bdmap" style="width: 100%;height: 23rem;z-index: 3"></div>
+        <div id="bdmap" class  ="baidu-maps" style="width: 100%;height: 23rem;z-index: 3"></div>
         <div class="canyin-list row changeorder">
-           <div  style="float: left;margin-left: 2rem">
+           <div  style="float: left;margin-left: 3rem">
                <button type="button" class="btn btn-info" onclick="changeorderdistance()">距离优先</button>
                <button type="button" class="btn btn-info" onclick="changeordergood()">好评优先</button>
                <button type="button" class="btn btn-info" onclick="changeorderbad()">差评优先</button>
+               <button type="button" class="btn btn-info" onclick="showbadcanyin()">问题餐厅</button>
             </div>
         </div>
     </div>
@@ -93,12 +94,13 @@
 
     var point = new BMap.Point(116.059489,43.939966);
 	map.centerAndZoom(point,15);
+
     map.enableScrollWheelZoom(true);
     var walking = new BMap.WalkingRoute(map, {renderOptions:{map: map, autoViewport: true}});
 	var geolocation = new BMap.Geolocation();
+
 	geolocation.getCurrentPosition(function(r){
 		if(this.getStatus() == BMAP_STATUS_SUCCESS){
-
             var lng = $('#lng1').text();
             var lat = $('#lat1').text();
             if (lng){
@@ -121,7 +123,6 @@
 
             startpoint= newpoint;
             addNearbyMarkers(hotels,startpoint);
-
             var pos  = document.getElementsByClassName("pos");
             for(var i=0;i<pos.length;i++){
                         var id=parseInt(pos[i].getAttribute("id"));
@@ -153,7 +154,7 @@
           var myIcon = new BMap.Icon("../../../static/img/me.png",
                         new BMap.Size(29,42));
           var marker = new BMap.Marker(e.point, { icon: myIcon });
-          marker.setTitle('mypoint');
+          marker.setTitle('我的位置');
           //var point =new BMap.Point(116.091756,43.938876);
           map.addOverlay(marker);
           data.push(marker);
@@ -167,6 +168,7 @@
           var localpointlng = startpoint.lng;
           var localpointlat = startpoint.lat;
           window.location.href = '../../../home/canyin?order=2&id_distance='+id_distance_order+'&localpointlng='+localpointlng+'&localpointlat='+localpointlat;
+
         });
 
     function changeorderdistance(){
@@ -187,37 +189,30 @@
 	//BMAP_STATUS_SERVICE_UNAVAILABLE	服务不可用。对应数值“7”。(自 1.1 新增)
 	//BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)
 
+
+
     function addNearbyMarkers(hotels,startpoint){
+        console.log(hotels)
 
         for(var i=0;i<hotels.length;i++){
             var tmp_point=new BMap.Point(hotels[i].posi[0],hotels[i].posi[1]);
             if(isinScope(startpoint,tmp_point)){
-                addMarker(tmp_point,hotels[i]["name"]);
-            //var hote = hotels[i]["name"].length;
-            //console.log(hote);
-
+                addMarker(tmp_point,hotels[i]["name"],i);
             }
         }
-         $(".BMapLabel").wrap("<div class='wrap'></div>");
-         $(".BMapLabel").css({"left":"32px"});
-          $(".wrap").each(function(){
-              console.log("111::"+ $(this).text());
-              //console.log("222::"+ $(this).text().length);
-              var bmap = $(this).text().length*17+"px";
-              console.log(bmap);
-              if(bmap){
-                  $(this).width(bmap);
-              }
-            });
+        // 包裹warp
+         //warpCan();
 
     }
 
-    function addMarker(point,text){
-      var label = new BMap.Label(text,{offset:new BMap.Size(25,0)});
-      label.setStyle({padding:"0px", fontSize : "16px", border:"0"});
+    function addMarker(point,text,index){
+      var label = new BMap.Label(text,{offset:new BMap.Size(29,0)});
+      label.setStyle({padding:"0px", fontSize : "16px", border:"0",backgroundColor:"#FFFFFF",textAlign:"center"});
       var myIcon = new BMap.Icon("../../../static/img/dingwei.png",new BMap.Size(30, 39));
 	  var marker = new BMap.Marker(point,{icon:myIcon});
+        marker.setTitle('餐饮店');
       marker.setLabel(label);
+      marker.setZIndex(index);
 	  map.addOverlay(marker);
 
 
@@ -271,6 +266,51 @@
 
     }
 
+    function getMarkers(){
+        var markerlist=[]
+        var arrayOverlays = map.getOverlays();
+        for (var i = 0; i < arrayOverlays.length; i++) {
+            if(arrayOverlays[i].toString()=="[object Marker]"){
+                console.log(arrayOverlays[i].content);
+                if(arrayOverlays[i].getTitle()=="餐饮店") {
+
+                    markerlist.push(arrayOverlays[i]);
+                }
+            }
+        }
+        return markerlist;
+
+    }
+    map.addEventListener("zoomend",function(){
+        var makerlist=getMarkers();
+        var len=makerlist.length;
+        var zoom=map.getZoom();
+        console.log(zoom);
+        if(zoom<11){
+                for(var i=0;i<len;i++){
+                    makerlist[i].getLabel().hide();
+                }
+            }
+        else if(zoom<14){
+
+                for(var i=0;i<len;i++){
+                    if(i%2){
+                        makerlist[i].getLabel().hide();
+                    }else{
+                        makerlist[i].getLabel().show();
+                    }
+                }
+            }
+
+        else{
+            for(var i=0;i<len;i++){
+
+                    makerlist[i].getLabel().show();
+
+            }
+        }
+    })
+
 
 
 </script>
@@ -299,6 +339,9 @@
     }
     function changeordergood(){
         window.location.href = '../../../home/canyin?order=0'
+    }
+    function showbadcanyin(){
+        window.location.href = '../../../home/wenticanyin'
     }
 
 </script>
