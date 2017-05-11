@@ -1,0 +1,9 @@
+*.pyc
+/.idea/
+settings.py
+.idea/
+settings.py*
+*.bak
+*/migrations/
+*.swo
+
