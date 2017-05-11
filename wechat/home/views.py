@@ -358,6 +358,8 @@ def canyin(request):
         tmp_info["name"]=hotel.name.encode('utf-8')
         tmp_info["address"]=hotel.address.encode('utf-8')
         tmp_info["avr_score"]=float(hotel.avr_score)
+        commentlist = Comment.objects.filter(hotel=hotel)
+        context["commentlen"] = len(commentlist)
         tmp_info["id"]=int(hotel.id)
         tmp_posi=[]
         tmp_posi.append(hotel.lng)
@@ -378,7 +380,7 @@ def canyin(request):
 
     # print hotels_info,type(hotels_info)
     context["hotels_info"]=json.dumps(hotels_info)
-    context["hotels_title"]=hotels
+    context["hotels_title"]=hotels_info
     return render(request,'home/canyin.html',context)
 @csrf_exempt
 def addhotelimg(request):
@@ -403,7 +405,7 @@ def addhotelimg(request):
         if hotel:
             hotel[0].img=imagesurl
             hotel[0].save()
-            print "图片以保存"
+            print "图片已保存"
         hotellist = Hotel.objects.all()
         context = {}
         context["hotellist"] = hotellist
@@ -456,7 +458,7 @@ def complaintext(request):
         complain.save()
         result = {}
         result['res'] = 1
-        return render(request,'home/complaintext.html')
+        return JsonResponse(result)
 
 def chat(msg):
     import sys

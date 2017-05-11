@@ -13,7 +13,7 @@
 
             .list-content .col-xs-4{padding: 0;margin-top: 0.8rem}
             .list-content .list-group-item{border: none;padding: 0.1rem 0 0 0;}
-        </style>
+    </style>
     <title>我要投诉</title>
 </head>
 <body>
@@ -36,7 +36,7 @@
                  <input type="text" name="useinfo" id="useinfo" value="{{useinfo}}">
                  <input type="text" name="hotelid" id="hotelid" value="{{hotelid}}">
               </div>
-              <button type="submit"   class="btn btn-success" style="float: right">提交</button>
+              <button onclick="submitfun()"   class="btn btn-success" style="float: right">提交</button>
         </form>
     </div>
 <script>
@@ -49,10 +49,10 @@
                 type:"POST",
                 data:{nickname:nickname,hotelid:hotelid,text:text},
                 success:function(data) {
-                    if (data) {
+
                         alert("操作成功");
 
-                    }
+
                 },
                 error:function(data){
 
