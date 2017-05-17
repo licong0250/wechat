@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="stylesheet" type="text/css" href="http://121.40.58.147/static/css/list.css"/>
-<link rel="stylesheet" type="text/css" href="../../../static/assets/css/base.css">
+<!--<link rel="stylesheet" type="text/css" href="../../../static/assets/css/base.css">-->
 <link rel="stylesheet" type="text/css" href="../../../static/bootstrap/css/bootstrap.css">
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=MFNdr8DMmQRO6xrbpsctDvnjb9UjbjT8"></script>
 <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script><!--调用jQuery-->
@@ -16,37 +16,48 @@
 <script src="../../../static/raty-master/lib/jquery.raty.js"></script>
 <title>餐饮安全</title>
 <style type="text/css">
+        html{  font-size:62.5%; /* 10÷16=62.5% */  }
+        body{  font-size:12px;  font-size:1.2rem ; /* 12÷10=1.2 */  }
         *{font-family: "微软雅黑";}
         body, html {width: 100%;height: 100%;max-width: 800px;margin: 0 auto;position: relative}
         .canyin-map{position: fixed;top: 0;left: 0;width: 100%;height: 20rem;z-index: 3}
         .con{color: #000;font-weight: bold;}
         .con:active{text-decoration:none;}
         .con:hover{text-decoration:none}
-        .main{width: 100%;height: 30rem;}
+        .main{width: 100%;height: 27rem;}
         .canyin{width: 85%;margin: 0 auto;}
-        .canyin-list{border-bottom: 1px solid #e2e2e2;padding-bottom: 1rem;padding-top: 1rem;}
+        .canyin-list{}
         .canyin .list-group-item{border: none;padding: 0.3rem 0.3rem;}
         .canyin-image{width: 8rem;height: 8rem;display: block;}
         .canyin .col-xs-9{padding: 0;}
         .canyin .col-xs-3{padding: 0;}
         .baidu-maps label {  max-width: none;  }
-        .changeorder{background: white;}
+        .changeorder{background: #fff;}
         .wrap{height: 19px;margin-left: 30px;background-color: #fff;
             color: #000;border-radius: 5px;padding-bottom: 25px;}
+        /*.canyin-list button{width: 6rem;}*/
+        .canyin-list .col-xs-3{padding: 0 2px;}
+        .canyin-list .col-xs-3 button{width: 100%;height: 100%;padding: 5px 5px;text-align: center;}
     </style>
 
 </head>
 
 <body>
     <div class="canyin-map">
-        <div id="bdmap" class  ="baidu-maps" style="width: 100%;height: 23rem;z-index: 3"></div>
-        <div class="canyin-list row changeorder">
-           <div  style="float: left;margin-left: 3rem">
+        <div id="bdmap" class  ="baidu-maps" style="height: 23rem;z-index: 3;"></div>
+        <div class="canyin-list changeorder row" style="width: 95%;margin: 0 auto;padding-top: 6px">
+            <div class="col-xs-3">
                <button type="button" class="btn btn-info" onclick="changeorderdistance()">距离优先</button>
-               <button type="button" class="btn btn-info" onclick="changeordergood()">好评优先</button>
-               <button type="button" class="btn btn-info" onclick="changeorderbad()">差评优先</button>
-               <button type="button" class="btn btn-info" onclick="showbadcanyin()">问题餐厅</button>
             </div>
+             <div class="col-xs-3">
+                <button type="button" class="btn btn-info" onclick="changeordergood()">好评优先</button>
+            </div>
+             <div class="col-xs-3">
+                 <button type="button" class="btn btn-info" onclick="changeorderbad()">差评优先</button>
+            </div>
+             <div class="col-xs-3">
+                <button type="button" class="btn btn-info" onclick="showbadcanyin()">问题餐厅</button>
+             </div>
         </div>
     </div>
     <div class="main"></div>
@@ -148,7 +159,7 @@
 		}
 	},{enableHighAccuracy: true});
 
-//增加时间监听，点击地图某一个点，将中心点设置在该点的位置
+    //增加事件监听，点击地图某一个点，将中心点设置在该点的位置
     map.addEventListener("click", function(e){
           map.clearOverlays();
           var myIcon = new BMap.Icon("../../../static/img/me.png",

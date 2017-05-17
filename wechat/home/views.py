@@ -75,8 +75,8 @@ def WeChat(request):
                   return HttpResponse(t.render(c))
            elif Event == 'subscribe':
                 content = '终于等到你，感谢您的关注。'
-	   else:
-		content = ''
+           else:
+                content = ''
       elif msgType == 'image':
           try:
             picurl = xml.find('PicUrl').text
@@ -85,7 +85,7 @@ def WeChat(request):
           except:
             content =  '识别失败，换张图片试试吧'
       else:
-	  content = chat( xml.find("Content").text)
+            content = chat( xml.find("Content").text)
       
       #加载text.xml模板
       t = loader.get_template('home/text.xml')
@@ -428,6 +428,9 @@ def star(request):
 
 def complain(request):
     return render(request,'home/complain.html')
+
+def jinqu(request):
+    return render(request,'home/jinqu.html')
 
 def wenticanyin(request):
     hotelslist = Hotel.objects.filter(id__lt=7)

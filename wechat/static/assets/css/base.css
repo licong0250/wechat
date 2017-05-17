@@ -1,0 +1,136 @@
+/* 这里里面的东西是全局样式 */
+/* reset设置一些常用的 样式，解决浏览器默认样式问题 */
+html {font-family: Arial,"Microsoft YaHei";-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;font-size: 16px;}
+body {position: relative;margin: 0 auto;min-width: 300px;/*max-width:640px;*/background-color: #eaeaea;-webkit-tap-highlight-color: transparent; }
+article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary {display: block;}
+a{background-color: transparent;text-decoration: none;}
+a:active,a:hover {outline: 0;}
+abbr[title]{border-bottom: 1px dotted;}
+b,strong {font-weight: bold;}
+mark{color: #000; background: #ff0;}
+small{font-size: 80%;}
+sub,sup{position: relative;font-size: 75%;line-height: 0;vertical-align: baseline;}
+sup{top: -.5em;}
+sub{bottom: -.25em;}
+img{border: 0;}
+figure{margin: 1em 40px;}
+hr{height: 0;-webkit-box-sizing: content-box;-moz-box-sizing: content-box;box-sizing: content-box;}
+pre{overflow: auto;}
+code,kbd,pre,samp{font-family: monospace, monospace;font-size: 1em;}
+button,input,optgroup,select,textarea{margin: 0;font: inherit;color: inherit;}
+button{overflow: visible;}
+button,select{text-transform: none;}
+button,html input[type="button"],input[type="reset"],input[type="submit"] {-webkit-appearance: button;cursor: pointer;}
+button[disabled],html input[disabled] {cursor: default;}
+button::-moz-focus-inner,input::-moz-focus-inner {padding: 0;border: 0;}
+input {line-height: normal;}
+input[type="checkbox"],input[type="radio"] {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;padding: 0;}
+input[type="search"] {-webkit-box-sizing: content-box;-moz-box-sizing: content-box;box-sizing: content-box;-webkit-appearance: textfield;}
+fieldset {padding: .35em .625em .75em;margin: 0 2px;border: 1px solid #c0c0c0;}
+input[type='number'] { -moz-appearance:textfield;}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {-webkit-appearance: none;margin: 0;}
+input[type="button"], input[type="submit"], input[type="reset"],input[type="text"] { -webkit-appearance: none;}
+legend {padding: 0;border: 0;}
+textarea {overflow: auto;-webkit-appearance: none;}
+optgroup {font-weight: bold;}
+table {border-spacing: 0;border-collapse: collapse;}
+td,th {padding: 0;}
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {font-family: '微软雅黑';font-weight: normal;color: inherit;margin: 0px;padding: 0px;}
+ul,ol,p,dl,dt,dd {margin:0;padding: 0;}
+li{list-style: none;}
+/* function 一些常用的简单样式汇总，防止简单样式开发。 */
+.f-cb:after,.f-cbli li:after{display:block;clear:both;visibility:hidden;height:0;overflow:hidden;content:".";}
+.f-cb,.f-cbli li{zoom:1;}
+.cb{clear: both;}
+.f-ib{display:inline-block;*display:inline;*zoom:1;}
+.f-dn{display:none;}
+.f-db{display:block;}
+.f-fl{float:left;}
+.f-fr{float:right;}
+.f-pr{position:relative;}
+.f-prz{position:relative;zoom:1;}
+.f-oh{overflow:hidden;}
+.f-fs1{font-size:12px;}
+.f-fs2{font-size:14px;}
+.f-fwn{font-weight:normal;}
+.f-fwb{font-weight:bold;}
+.f-vam,.f-vama *{vertical-align:middle;}
+.f-wsn{word-wrap:normal;white-space:nowrap;}
+.f-pre{overflow:hidden;text-align:left;white-space:pre-wrap;word-wrap:break-word;word-break:break-all;}
+.f-wwb{white-space:normal;word-wrap:break-word;word-break:break-all;}
+.f-ti{overflow:hidden;text-indent:-30000px;}
+.f-ti2{text-indent:2em;}
+.f-lhn{line-height:normal;}
+.f-tdu,.f-tdu:hover{text-decoration:underline;}
+.f-tdn,.f-tdn:hover{text-decoration:none;}
+.f-toe{overflow:hidden;word-wrap:normal;white-space:nowrap;text-overflow:ellipsis;}
+.f-csp{cursor:pointer;}
+.f-csd{cursor:default;}
+.f-csh{cursor:help;}
+.f-csm{cursor:move;}
+.f-usn{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none;}
+.text-left{text-align:left;}
+.text-center{text-align:center;}
+.text-right{text-align:right;}
+.text-justify{text-align:justify;text-justify:inter-ideograph;}
+.text-nowrap{white-space: nowrap;}
+/* margin */
+.nm{ margin: 0px!important;;}
+.nmt{ margin-top:0px!important;;}
+.mt5{margin-top:5px!important;}
+.mt10{margin-top:10px!important;}
+.mt20{margin-top:20px!important;}
+.mt30{margin-top:30px!important;}
+.nmr{ margin-right:0px!important;;}
+.mr5{margin-right:5px!important;}
+.mr10{margin-right:10px!important;}
+.mr20{margin-right:20px!important;}
+.nmb{ margin-bottom:0px!important;;}
+.mb5{margin-bottom:5px!important;}
+.mb10{margin-bottom:10px!important;}
+.mb20{margin-bottom:20px!important;}
+.nml{ margin-left:0px!important;}
+.ml5{margin-left:5px!important;}
+.ml10{margin-left:10px!important;}
+.ml20{margin-left:20px!important;}
+.mv5{margin:5px 0!important;}
+.mv10{margin:10px 0!important;}
+.mv20{margin:20px 0!important;}
+.mh5{margin:0 5px!important;}
+.mh10{margin:0 10px!important;}
+.m5{margin:5px!important;}
+.m10{margin:10px!important;}
+/* padding */
+.npt{padding-top:0px!important;}
+.pt5{padding-top:5px!important;}
+.pt10{padding-top:10px!important;}
+.npr{padding-right:5px!important;}
+.pr5{padding-right:5px!important;}
+.pr10{padding-right:10px!important;}
+.npb{padding-bottom:0px!important;}
+.pb5{padding-bottom:5px!important;}
+.pb10{padding-bottom:10px!important;}
+.npl{padding-left:0px!important;}
+.pl5{padding-left:5px!important;}
+.pl10{padding-left:10px!important;}
+.pl20{padding-left:20px!important;}
+.pv5{padding:5px 0!important;}
+.pv10{padding:10px 0!important;}
+.pv20{padding:20px 0!important;}
+.ph5{padding:0 5px!important;}
+.ph10{padding:0 10px!important;}
+.p5{padding:5px!important;}
+.p10{padding:10px!important;}
+/* 颜色定义 */
+.red{color: #F00;}
+.white{color: #FFF;}
+.green{color:#0F0;}
+.gray{color: #ccc;}
+.blue{ color: #00F;}
+.black{ color:#000;}
+.colf60{color: #f60;}
+.colf00{color:#ff0000;}
+.col06f{color: #0066ff;}
+.col999{color: #999}
+.col666{color: #666}
