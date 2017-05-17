@@ -36,4 +36,5 @@ urlpatterns = [
     url(r'^complain/', views.complain,name='complain'),
     url(r'^complaintext/', views.complaintext,name='complaintext'),
     url(r'^wenticanyin/', views.wenticanyin,name='wenticanyin'),
+    url(r'^jinqu/', views.jinqu,name='jinqu'),
 ]

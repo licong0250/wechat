@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../static/assets/css/base.css">
+    <script src="../../../static/assets/js/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="../../../static/angularjs/angular.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../../../static/assets/js/zepto.js"></script>
+<style>
+    .jinqu.list-group{margin-bottom: 0.5rem}
+    .jinqu .list-group-item{height: 5rem;padding: 0.5rem 2rem;}
+    .jinqu .list-group-item:nth-child(1){font-size: 1.5rem;height: 3rem;border-bottom: none;}
+    .jinqu .list-group-item:nth-child(2){height: 4rem;border-bottom: none;border-top: none;}
+    .jinqu .list-group-item:nth-child(3){height: 3rem;border-bottom: none;border-top: none;}
+    .jinqu .list-group-item:nth-child(4){height: 3rem;border-top: none;}
+    .jinqu-span{font-size: 1rem;}
+    .jinqu-span:nth-child(1){float: left;text-align: left;}
+    .jinqu-span:nth-child(2){float: right;text-align: right;}
+    body{max-width: 800px;margin: 0 auto;}
+</style>
+</head>
+<body>
+    <div class="list-group jinqu">
+        <div class="list-group-item">多伦湖</div>
+        <div class="list-group-item">
+            <span class="btn btn-info">4A级</span>
+            <span class="btn btn-warning">多伦县</span>
+            <span class="btn btn-success">08:00-21:30</span>
+        </div>
+        <div class="list-group-item" >
+            <div class="progress" style="margin: 0;position: relative">
+               <div class="progress-bar perpp" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
+                   <!--<div id="" style="text-align: right;"> 417人/15000人</div>-->
+               </div>
+                <div class="people" style="text-align: right;color: #000;
+                width: 100%;position: absolute;right: 0;top: 1px;"> <span class="flow"></span>人/<label>15000</label>人</div>
+            </div>
+        </div>
+        <div class="list-group-item f-cb">
+            <span class="jinqu-span ">数据更新时间<span class="getNowtime"></span></span>
+            <span class="jinqu-span ">当前客流 / 瞬时最大承载量</span>
+        </div>
+    </div>
+
+     <div class="list-group jinqu">
+        <div class="list-group-item">御马苑旅游区</div>
+        <div class="list-group-item">
+            <span class="btn btn-info">4A级</span>
+            <span class="btn btn-warning">太仆寺旗</span>
+            <span class="btn btn-success">08:00-21:30</span>
+        </div>
+        <div class="list-group-item" >
+            <div class="progress" style="margin: 0;position: relative">
+               <div class="progress-bar perpp" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                   <!--<div id="" style="text-align: right;"> 417人/15000人</div>-->
+               </div>
+                <div style="text-align: right;color: #000;
+                width: 100%;position: absolute;right: 0;top: 1px;"> <span class="flow"></span>人/<label>6000</label>人</div>
+            </div>
+        </div>
+        <div class="list-group-item f-cb">
+            <span class="jinqu-span">数据更新时间<span class="getNowtime"></span></span>
+            <span class="jinqu-span ">当前客流 / 瞬时最大承载量</span>
+        </div>
+    </div>
+
+    <div class="list-group jinqu">
+            <div class="list-group-item">二连盆地白垩纪恐龙国家地质公园</div>
+            <div class="list-group-item">
+                <span class="btn btn-info">4A级</span>
+                <span class="btn btn-warning">锡林浩特</span>
+                <span class="btn btn-success">08:00-21:30</span>
+            </div>
+            <div class="list-group-item" >
+                <div class="progress" style="margin: 0;position: relative">
+                   <div class="progress-bar perpp" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                       <!--<div id="" style="text-align: right;"> 417人/15000人</div>-->
+                   </div>
+                    <div style="text-align: right;color: #000;
+                    width: 100%;position: absolute;right: 0;top: 1px;"> <span class="flow"></span>人/<label>6000</label>人</div>
+                </div>
+            </div>
+            <div class="list-group-item f-cb">
+                <span class="jinqu-span">数据更新时间<span class="getNowtime"></span></span>
+                <span class="jinqu-span ">当前客流 / 瞬时最大承载量</span>
+            </div>
+        </div>
+
+    <div class="list-group jinqu">
+            <div class="list-group-item">锡盟蒙古汗城</div>
+            <div class="list-group-item">
+                <span class="btn btn-info">3A级</span>
+                <span class="btn btn-warning">锡林浩特</span>
+                <span class="btn btn-success">08:00-21:30</span>
+            </div>
+            <div class="list-group-item" >
+                <div class="progress" style="margin: 0;position: relative">
+                   <div class="progress-bar perpp" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                       <!--<div id="" style="text-align: right;"> 417人/15000人</div>-->
+                   </div>
+                    <div style="text-align: right;color: #000;
+                    width: 100%;position: absolute;right: 0;top: 1px;"> <span class="flow"></span>人/<label>6000</label>人</div>
+                </div>
+            </div>
+            <div class="list-group-item f-cb">
+                <span class="jinqu-span">数据更新时间<span class="getNowtime"></span></span>
+                <span class="jinqu-span ">当前客流 / 瞬时最大承载量</span>
+            </div>
+    </div>
+
+
+    <div class="list-group jinqu">
+        <div class="list-group-item">锡林郭勒大草原</div>
+        <div class="list-group-item">
+            <!--<span class="btn btn-info">5A级</span>-->
+            <span class="btn btn-warning">锡林浩特</span>
+            <span class="btn btn-success">08:00-21:30</span>
+        </div>
+        <div class="list-group-item" >
+            <div class="progress" style="margin: 0;position: relative">
+               <div class="progress-bar perpp" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" >
+                   <!--<div id="" style="text-align: right;"> 417人/15000人</div>-->
+               </div>
+                <div style="text-align: right;color: #000;
+                width: 100%;position: absolute;right: 0;top: 1px;"> <span class="flow"></span>人/<label>5900</label>人</div>
+            </div>
+        </div>
+        <div class="list-group-item f-cb">
+            <span class="jinqu-span">数据更新时间<span class="getNowtime"></span></span>
+            <span class="jinqu-span">当前客流 / 瞬时最大承载量</span>
+        </div>
+    </div>
+
+    <div class="list-group jinqu">
+        <div class="list-group-item">啤酒泉</div>
+        <div class="list-group-item">
+            <!--<span class="btn btn-info">5A级</span>-->
+            <span class="btn btn-warning">锡林浩特</span>
+            <span class="btn btn-success">08:00-21:30</span>
+        </div>
+        <div class="list-group-item" >
+            <div class="progress" style="margin: 0;position: relative">
+               <div class="progress-bar perpp" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" >
+                   <!--<div id="" style="text-align: right;"> 417人/15000人</div>-->
+               </div>
+                <div style="text-align: right;color: #000;
+                width: 100%;position: absolute;right: 0;top: 1px;"> <span class="flow"></span>人/<label>5900</label>人</div>
+            </div>
+        </div>
+        <div class="list-group-item f-cb">
+            <span class="jinqu-span">数据更新时间<span class="getNowtime"></span></span>
+            <span class="jinqu-span">当前客流 / 瞬时最大承载量</span>
+        </div>
+    </div>
+
+    <div class="list-group jinqu">
+        <div class="list-group-item">贝子庙</div>
+        <div class="list-group-item">
+            <!--<span class="btn btn-info">5A级</span>-->
+            <span class="btn btn-warning">锡林浩特</span>
+            <span class="btn btn-success">08:00-21:30</span>
+        </div>
+        <div class="list-group-item" >
+            <div class="progress" style="margin: 0;position: relative">
+               <div class="progress-bar perpp" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" >
+                   <!--<div id="" style="text-align: right;"> 417人/15000人</div>-->
+               </div>
+                <div style="text-align: right;color: #000;
+                width: 100%;position: absolute;right: 0;top: 1px;"> <span class="flow"></span>人/<label>5900</label>人</div>
+            </div>
+        </div>
+        <div class="list-group-item f-cb">
+            <span class="jinqu-span">数据更新时间<span class="getNowtime"></span></span>
+            <span class="jinqu-span">当前客流 / 瞬时最大承载量</span>
+        </div>
+    </div>
+
+    <div class="list-group jinqu">
+        <div class="list-group-item">白音锡勒草原牧场</div>
+        <div class="list-group-item">
+            <!--<span class="btn btn-info">5A级</span>-->
+            <span class="btn btn-warning">锡林浩特</span>
+            <span class="btn btn-success">08:00-21:30</span>
+        </div>
+        <div class="list-group-item" >
+            <div class="progress" style="margin: 0;position: relative">
+               <div class="progress-bar perpp" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                   <!--<div id="" style="text-align: right;"> 417人/15000人</div>-->
+               </div>
+                <div style="text-align: right;color: #000;
+                width: 100%;position: absolute;right: 0;top: 1px;"> <span class="flow"></span>人/<label>5000</label>人</div>
+            </div>
+        </div>
+        <div class="list-group-item f-cb">
+            <span class="jinqu-span">数据更新时间<span class="getNowtime"></span></span>
+            <span class="jinqu-span">当前客流 / 瞬时最大承载量</span>
+        </div>
+    </div>
+</body>
+<script>
+
+    window.onload=function(){
+
+        var flowlist=$('.flow');
+        for(var i=0;i<flowlist.length;i++)
+            {
+                var n = 5;
+                var m = 5000;
+                flowlist[i].innerHTML = rd(n,m);
+            }
+        $(".progress").each(function(){
+            var progress = $(this).find("span").text();
+            var progre=$(this).find("label").text();
+            var a = (progress/progre*100).toString()+"%";
+            $(this).find(".perpp").css("width",a)
+
+        });
+        var getNowtime = $('.getNowtime')
+        for(var i=0;i<getNowtime.length;i++)
+            {
+               getNowtime[i].innerHTML = getNowFormatDate();
+            }
+    }
+
+    function rd(n,m){
+            var c = m-n+1;
+            return Math.floor(Math.random() * c + n);
+        }
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+                + " " + date.getHours() + seperator2 + date.getMinutes();
+        return currentdate;
+    }
+
+</script>
+</html>
