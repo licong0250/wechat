@@ -1,244 +1,882 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="format-detection" content="telephone=no">
-<meta name="Keywords" content="锡市发布" />
-<meta name="Description" content="锡市政务微信矩阵"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
-<title>锡市政务微信矩阵</title>
-<style type="text/css">
-	*{ padding: 0; margin: 0; border: 0;}
-	html,body{min-height: 100%;}
-	body{ background: #FFF url(http://skin.kankanews.com/v5/openservice/images/wxt/b1g.jpg) no-repeat left bottom; background-size: 100%; font-size: 16px; font-family: Helvetica; line-height: 1.5;}
-	a:link,a:visited{ color: #000; text-decoration: none;}
-	.clearfix{*zoom:1;}
-	.clearfix:after{display:block; overflow:hidden; clear:both; height:0; visibility:hidden; content:".";}
-	.navBar{ padding:10px 0 0 2%; background: url(images/line.png) repeat-x left bottom;}
-	.navBar span{ width: 34%; float: left; display: inline-block; position: relative; margin-right: -2%; background: url(http://121.40.58.147/static/images/nav_bg.png) no-repeat; background-size: 100%; text-align: center; font-size: 14px; font-weight: 700; line-height: 2.5;}
-	.navBar span:nth-child(1){ z-index: 3;}
-	.navBar span:nth-child(2){ z-index: 2;}
-	.navBar span:nth-child(3){ z-index: 1;}
-	.navBar span.cur{ z-index: 5; background: url(http://121.40.58.147/static/images/navcur_bg.png) no-repeat; background-size: 100%; color: #fff;}
-	.tabCon{ padding:5% 3% 0 3%; width: 94%; display: none;}
-	.tablist{ float: left; display: inline; width: 30.3%; margin: 0 1.5%; overflow: hidden; text-align: center; font-size: 15px; margin-bottom:6px; }
-	.tablist .icon{ width: 60%; margin: 0 20%; overflow: hidden;}
-	.tablist .icon img{ width: 100%; display: block;}
-	.tablist p{ padding:6px 0; font-size:14px;}
-	@media (min-width: 360px){
-		.tablist{ font-size: 16px;}
-	}
-</style>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0024)http://dlx.honeeweb.com/ -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>锡林浩特微信矩阵</title>
+        <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+
+        <link href="../../../static/wechat/cate.css" rel="stylesheet" type="text/css">
+        <link href="../../../static/wechat/iscroll.css" rel="stylesheet" type="text/css">
+        <script src="../../../static/wechat/jquery.min.js" type="text/javascript"></script>
+        <script src="../../../static/wechat/swipe.js" type="text/javascript"></script>
+        <script src="../../../static/wechat/iscroll.js" type="text/javascript"></script>
+        <style type="text/css">
+            .list_uls dl dd img{
+                display: inline-block;
+                height: 67px !important;
+                width: 67px !important;
+                margin-bottom: 6px;
+                border-radius: 34px;
+            }
+        </style>
+        <script type="text/javascript">
+        var myScroll;
+        function loaded() {
+        myScroll = new iScroll('wrapper', {
+        snap: true,
+        momentum: false,
+        hScrollbar: false,
+        onScrollEnd: function () {
+        document.querySelector('#indicator > li.active').className = '';
+        document.querySelector('#indicator > li:nth-child(' + (this.currPageX+1) + ')').className = 'active';
+        }
+        });
+
+
+        }
+        document.addEventListener('DOMContentLoaded', loaded, false);
+        </script>
+        <script>
+        $(function(){
+        window.swiper_2 = new Swipe(document.getElementById('list_uls'), {
+        speed:500,
+        // auto:3000,
+        callback: function(){
+        var lis = $(".nav_for_list_ul ul:first-of-type li");
+        lis.removeClass("on").eq(this.index).addClass("on");
+        var las = $(".nav_for_list_ul ul:nth-of-type(2) a");
+        las.removeClass("on").eq(this.index).addClass("on");
+        var minIndex = 0;
+        var maxIndex = Math.max(0, nav_uls.length - 3);
+        var range = [this.index-1, minIndex, maxIndex];
+        //
+        range = range.sort(function(a, b){
+        return a>b?1:-1;
+        });
+        window.nav_uls.slide(range[1]);
+        }
+        });
+        });
+        </script>
+    </head>
+
+         <body>
+        <!--music-->
+                <div class="banner">
+					<div id="wrapper" style="overflow: hidden;">
+						<div id="scroller" style="width: 1349px;">
+								<ul id="thelist">
+								<li><a target="_blank"><img src="../../../static/images/Pictures/banner.jpg" style="width: 1349px;"></a></li>
+								</ul>
+						</div>
+					</div>
+					<div id="nav">
+						<div id="prev" onclick="myScroll.scrollToPage(&#39;prev&#39;, 0,400,2);return false">← prev</div>
+						<ul id="indicator">
+							<li class="active"></li>                </ul>
+						<div id="next" onclick="myScroll.scrollToPage(&#39;next&#39;, 0,400,2);return false">next →</div>
+					</div>
+            		<div class="clr"></div>
+        		</div>
+
+        		<div id="insert1"></div>
+        <section>
+            <nav class="nav_for_list_ul">
+                <div class="ofh">
+						<ul>
+							<li></li><li></li>
+						</ul>
+						<ul>
+							<div id="nav_uls" style="width: 33%; visibility: visible;">
+								<ol style="list-style: none; width: 2225.78px; transition: 0ms; transform: translate3d(0px, 0px, 0px);">
+								  	<li style="width: 445.156px; float: left; vertical-align: top;"><a href="javascript:swiper_2.slide(0);" class="on"><img src="">政府部门</a></li>
+									<li style="width: 445.156px; float: left; vertical-align: top;"><a href="javascript:swiper_2.slide(1);"><img src="">市委部门</a></li>
+									<li style="width: 445.156px; float: left; vertical-align: top;"><a href="javascript:swiper_2.slide(2);"><img src="">苏木镇场</a></li>
+									<li style="width: 445.156px; float: left; vertical-align: top;"><a href="javascript:swiper_2.slide(3);"><img src="">街道办</a></li>
+									<li style="width: 445.156px; float: left; vertical-align: top;"><a href="javascript:swiper_2.slide(4);"><img src="">其他部门</a></li>
+								</ol>
+							</div>
+                    	</ul>
+                    <script>
+							window.nav_uls = new Swipe(document.getElementById('nav_uls'), {
+									speed:500,
+									callback: function(){
+													if(this.index>(this.length-3)){
+														this.slide(this.length-3);
+														}
+													}
+												});
+                    </script>
+                </div>
+            </nav>
+            <div id="list_uls" class="list_uls box_swipe" style="visibility: visible;">
+
+                <ul style="list-style: none; width: 6745px; transition: 0ms; transform: translate3d(0px, 0px, 0px);">
+				<!-- 第一部分-->
+					<li style="width: 1349px; float: left; vertical-align: top;">
+                        <dl>
+ 							<dd>
+								<!--政府办-->
+									<a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI5OTIzMTk5OA==&scene=124#wechat_redirect" target="_blank">
+													<figure>
+														<div><img src="http://121.40.58.147/static/images/Pictures/b/b006.png" height="125"></div>
+														<figcaption>
+														<label style="cursor:pointer;">政府办</label>
+														</figcaption>
+													</figure>
+									</a>
+							</dd>
+
+
+ 							<dd>
+                                <!--发展和改革局-->
+									<a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIzMjM0OTE5Nw==&scene=124#wechat_redirect" target="_blank">
+													<figure>
+														<div><img src="http://121.40.58.147/static/images/Pictures/b/b007.png" height="125"></div>
+														<figcaption>
+														<label style="cursor:pointer;">发展和改革局</label>
+														</figcaption>
+													</figure>
+									</a>
+
+							</dd>
+
+
+ 							<dd>
+                                	<!-- 教育科技-->
+										<a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAxODYxOTQ2MQ==&scene=124#wechat_redirect" target="_blank">
+													<figure>
+														<div><img src="http://121.40.58.147/static/images/jykj12.png" height="125"></div>
+														<figcaption>
+														<label style="cursor:pointer;">教育科技</label>
+														</figcaption>
+													</figure>
+										</a>
+
+							</dd>
+ 							<dd>
+									<!--经济和信息化局-->
+										<a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAwNjEyMTg5OA==&scene=124#wechat_redirect" target="_blank">
+													<figure>
+														<div><img src="http://121.40.58.147/static/images/Pictures/b/b009.png" height="125"></div>
+														<figcaption>
+														<label style="cursor:pointer;">锡市经化局</label>
+														</figcaption>
+													</figure>
+										</a>
+							</dd>
+ 							<dd>
+                                	<!-- 平安锡市-->
+										<a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA3MzU2NjAzNQ==&scene=124#wechat_redirect" target="_blank">
+													<figure>
+														<div><img src="http://121.40.58.147/static/images/paxs003.png" height="125"></div>
+														<figcaption>
+														<label style="cursor:pointer;">平安锡市</label>
+														</figcaption>
+													</figure>
+										</a>
+
+							</dd>
+ 							<dd>
+									<!-- 司法局-->
+										<a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI4OTAwODQyMA==&scene=124#wechat_redirect" target="_blank">
+											<figure>
+												<div><img src="http://121.40.58.147/static/images/Pictures/b/b011.png" height="125"></div>
+												<figcaption>
+												<label style="cursor:pointer;">司法局</label>
+												</figcaption>
+											</figure>
+										</a>
+							</dd>
+
+
+ 							<dd>
+									<!--财政局-->
+										<a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI0MTMyNzAwMA==&scene=124#wechat_redirect" target="_blank">
+											<figure>
+												<div><img src="http://121.40.58.147/static/images/Pictures/b/b012.png" height="125"></div>
+												<figcaption>
+												<label style="cursor:pointer;">财政局</label>
+												</figcaption>
+											</figure>
+										</a>
+							</dd>
+
+ 							<dd>
+								<!-- 人力资源-->
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA3MDg0NTg4Mg==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/rlzy5.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">人力资源与社保</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+ 							<dd>
+							<!--国土资源局-->
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAxOTEzOTkwMg==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/b/b014.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">国土资源局</label>
+										</figcaption>
+									</figure>
+                         		</a>
+							</dd>
+
+ 							<dd>
+									<!--交通运输局-->
+									<a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI4OTIyNTA0Mg==&scene=124#wechat_redirect" target="_blank">
+										<figure>
+											<div><img src="http://121.40.58.147/static/images/Pictures/b/b015.png" height="125"></div>
+											<figcaption>
+											<label style="cursor:pointer;">交通运输局</label>
+											</figcaption>
+										</figure>
+									</a>
+							</dd>
+
+ 							<dd>
+									<!-- 林业水利局-->
+									<a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI0NzA5MzM2Ng==&scene=124#wechat_redirect" target="_blank">
+										<figure>
+											<div><img src="http://121.40.58.147/static/images/lyslj4.png" height="125"></div>
+											<figcaption>
+											<label style="cursor:pointer;">林业水利局</label>
+											</figcaption>
+										</figure>
+									</a>
+							</dd>
+
+ 							<dd>
+								<!-- 农牧业局-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5MTQyMjU4NA==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/nmyj8.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">农牧业局</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+ 							<dd>
+								<!-- 生态环保局-->
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI0NDA1NTUzNg==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/lsst007.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">生态环保局</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+ 							<dd>
+									<!--卫生和计划生育局-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5NTk4MTU2Mw==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/b/b019.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">卫生和计生局</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+							<dd>
+								<!-- 锡市食药工商质监局-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAwMTc3NzA5OQ==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/syzjj006.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">食药质监局</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+ 							<dd>
+								<!--统计局-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI4OTI2NjM5Ng==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/b/b021.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">统计局</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+ 							<dd>
+								<!-- 为民城管-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5Mzg0OTgyNA==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/wmcg9.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">为民城管</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+ 							<dd>
+								<!--规划局-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI3MDI5NDU4Mg==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/b/b023.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">规划局</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+ 							<dd>
+								<!--政务服务中信-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAxNTU2NDE0Ng==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/b/b024.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">政务服务中信</label>
+										</figcaption>
+									</figure>
+                         		 </a>
+							</dd>
+
+ 							<dd>
+								<!--供销社-->
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAxNjk0NjU0Mg==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/b/b025.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">供销社</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+ 							<dd>
+
+								<!--园林绿化局-->
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI2MDI5OTg2NQ==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/b/b026.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">园林绿化局</label>
+										</figcaption>
+									</figure>
+                         		</a>
+							</dd>
+
+ 							<dd>
+									<!--扶贫开发-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIzNTMyNjcwMg==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/b/b027.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">扶贫开发</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+ 							<dd>
+
+								<!--信访局-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI5NzE4Mzc5OQ==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/b/b028.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">信访局</label>
+										</figcaption>
+									</figure>
+								</a>
+							</dd>
+
+ 							<dd>
+									<!-- 锡市公安消防-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAwMDI3NzQ1Mw==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/gaxf004.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">公安消防</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+ 							<dd>
+								<!-- 人民法院-->
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAxNDEzMjA1NA==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/rmfy3.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">人民法院</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+							<dd>
+								<!-- 锡市检察-->
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIxMzAwMDk5NQ==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/xsjc014.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">锡市检察</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+						</dl>
+                    </li>
+				<!-- 第二部分市委部门-->
+					<li style="width: 1349px; float: left; vertical-align: top;">
+                        <dl>
+
+ 							<dd>
+								<!--机关党委-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIzMjM3MzAzNw==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/d/d038.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">机关党委</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+
+
+ 							<dd>
+									<!--老干部-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI0NzQ3NjcwMg==&scene=124&uin=&key=&devicetype=Windows+10&version=6204014f&lang=zh_CN&a8scene=7&winzoom=1" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/d/d040.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">老干部</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+ 							<dd>
+									<!-- 市总工会-->
+									<a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA4MjA2NTQ2Nw==&scene=124#wechat_redirect" target="_blank">
+										<figure>
+											<div><img src="http://121.40.58.147/static/images/zgh11.png" height="125"></div>
+											<figcaption>
+											<label style="cursor:pointer;">市总工会</label>
+											</figcaption>
+										</figure>
+									</a>
+							</dd>
+
+ 							<dd>
+
+								<!--团委-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5Mjc0NzkwOQ==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/d/d042.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">团委</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+ 							<dd>
+									<!--妇联-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAxNzM3NjgzOA==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/d/d043.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">妇联</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+							<dd>
+									<!-- 市工商联-->
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIyOTI2MzYzNw==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/gsl.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">市工商联</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+ 							<dd>
+									<!--红十字会-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIzOTQ1NTMxNA==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/d/d045.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">红十字会</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+ 							<dd>
+									<!--科学技术协会-->
+									<a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIyMzYzMjc5Mg==&scene=124#wechat_redirect" target="_blank">
+										<figure>
+											<div><img src="http://121.40.58.147/static/images/Pictures/d/d046.png" height="125"></div>
+											<figcaption>
+											<label style="cursor:pointer;">科学技术协会</label>
+											</figcaption>
+										</figure>
+									</a>
+							</dd>
+
+ 							<dd>
+									<!--锡林浩特市人大-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI2ODQ2OTczOQ==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/d/d047.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">锡林浩特市人大</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+ 							<dd>
+								<!--农村牧区工作部-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIwNDM0NTMyMA==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/d/d039.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">农村牧区工作部</label>
+										</figcaption>
+									</figure>
+								</a>
+							</dd>
+
+
+                    	</dl>
+                    </li>
+				<!-- 第三部分-->
+      				<li style="width: 1349px; float: left; vertical-align: top;">
+                        <dl>
+
+ 							<dd>
+									<!--宝力根苏木-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAxODEyNTkxNw==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/c/c030.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">宝力根苏木</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+							<dd>
+									<!--白音锡勒牧场-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI0MzM3NDg1MA==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/c/c031.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">白音锡勒牧场</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+ 							<dd>
+									<!--贝力克牧场-->
+									<a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA4NzM5ODM4NA==&scene=124&uin=&key=&devicetype=Windows+10&version=6204014f&lang=zh_CN&a8scene=7&winzoom=1" target="_blank">
+										<figure>
+											<div><img src="http://121.40.58.147/static/images/Pictures/c/c032.png" height="125"></div>
+											<figcaption>
+											<label style="cursor:pointer;">贝力克牧场</label>
+											</figcaption>
+										</figure>
+									</a>
+							</dd>
+
+
+
+
+                     	</dl>
+                    </li>
+				<!-- 第四部分-->
+          			<li style="width: 1349px; float: left; vertical-align: top;">
+                        <dl>
+
+ 							<dd>
+								<!--杭盖街道办事处-->
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI2MjE5NjE3OA==&scene=124&uin=&key=&devicetype=Windows+10&version=6204014f&lang=zh_CN&a8scene=7&winzoom=1" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/e/e033.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">杭盖街道办</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+							<dd>
+								<!--楚古兰街道办事处-->
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIzODIzMTM5MQ==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/e/e034.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">楚古兰街道办</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+ 							<dd>
+									<!--希日塔拉街道办事处-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MjM5MjkyNzMxNg==&scene=124&uin=&key=&devicetype=Windows+10&version=6204014f&lang=zh_CN&a8scene=7&winzoom=1" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/e/e035.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">希日塔拉街道办</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+
+ 							<dd>
+									<!--额尔敦街道办事处-->
+
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI4NzIyMDE2Ng==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/e/e036.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">额尔敦街道办</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+							<dd>
+								<!--巴彦查干街道办事处-->
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAwNzg1NzY0OA==&scene=124#wechat_redirect">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/e/e037.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">巴彦查干街道办</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+
+
+                     	</dl>
+                    </li>
+
+				<!-- 第五部分-->
+ 					<li style="width: 1349px; float: left; vertical-align: top;">
+                        <dl>
+
+
+
+							<dd>
+								<!-- 新闻中心-->
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAwNDUwMDUzMw==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/a/a004.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">新闻中心</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+							<dd>
+								<!-- 锡市移动-->
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA3MjMwMTE5Nw==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/a/a005.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">锡市移动</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+							<dd>
+								<!-- 现代物流园区-->
+                                <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI0MjE2Mjk3OA==&scene=124#wechat_redirect" target="_blank">
+									<figure>
+										<div><img src="http://121.40.58.147/static/images/Pictures/a/a001.png" height="125"></div>
+										<figcaption>
+										<label style="cursor:pointer;">现代物流园区</label>
+										</figcaption>
+									</figure>
+                          		</a>
+							</dd>
+                    	</dl>
+                    </li>
+				</ul>
+            </div>
+            <!--<div style="font-size: 10px; text-align:center; margin-top:10px; background:#FFFFFF;">Copyright © 2017 DuoLunXian All Rights Reserved</div>-->
+            <!--<div style="font-size: 10px; text-align:center; margin-top:10px; background:#FFFFFF;">版权所有：多伦县微信矩阵丨技术支持：鄂尔多斯市宏易网络科技</div>-->
+        </section>
+
+
+
+        <script>
+        var count = document.getElementById("thelist").getElementsByTagName("img").length;
+        for(i=0;i<count;i++){
+        document.getElementById("thelist").getElementsByTagName("img").item(i).style.cssText = " width:"+document.body.clientWidth+"px";
+        }
+        document.getElementById("scroller").style.cssText = " width:"+document.body.clientWidth*count+"px";
+        setInterval(function(){
+        myScroll.scrollToPage('next', 0,400,count);
+        },3500 );
+        window.onresize = function(){
+        for(i=0;i<count;i++){
+        document.getElementById("thelist").getElementsByTagName("img").item(i).style.cssText = " width:"+document.body.clientWidth+"px";
+        }
+        document.getElementById("scroller").style.cssText = " width:"+document.body.clientWidth*count+"px";
+        }
+        </script>
+        <div class="copyright">
+                                </div>  <script src="../../../static/wechat/jquery.min.js" type="text/javascript"></script>
+<pigcmsif where="$radiogroup gt 8">
+<br>
+<br>
+</pigcmsif>
 <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-21873800-9', 'auto');
-    ga('require', 'displayfeatures');
-    ga('require', 'linkid', 'linkid.js');
-    ga('send', 'pageview');
-    var _hmt = _hmt || [];
-    (function() {
-    	var hm = document.createElement("script");
-    	hm.src = "//hm.baidu.com/hm.js?6f69830ae7173059e935b61372431b35";
-    	var s = document.getElementsByTagName("script")[0];
-    	s.parentNode.insertBefore(hm, s);
-    })();
+function displayit(n){
+    for(i=0;i<4;i++){
+        if(i==n){
+            var id='menu_list'+n;
+            if(document.getElementById(id).style.display=='none'){
+                document.getElementById(id).style.display='';
+                document.getElementById("plug-wrap").style.display='';
+            }else{
+                document.getElementById(id).style.display='none';
+                document.getElementById("plug-wrap").style.display='none';
+            }
+        }else{
+            if($('#menu_list'+i)){
+                $('#menu_list'+i).css('display','none');
+            }
+        }
+    }
+}
+function closeall(){
+    var count = document.getElementById("top_menu").getElementsByTagName("ul").length;
+    for(i=0;i<count;i++){
+        document.getElementById("top_menu").getElementsByTagName("ul").item(i).style.display='none';
+    }
+    document.getElementById("plug-wrap").style.display='none';
+}
+
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    WeixinJSBridge.call('hideToolbar');
+});
 </script>
-<script type="text/javascript" src="http://121.40.58.147/static/assets/js/zepto.min.js"></script>
-</head>
-<body>
-    <div class="navBar clearfix" style="padding: 10px 0 0 25%;">
-        <span class="cur">市直单位</span>
-        <span>其他</span>
-    </div>
-    <!--区县-->
-<div class="tabBox">
-     <div class="tabCon clearfix" style="display:block;">
-        <div class="clearfix">
+        <!-- share -->
+       <!--<script src="../../../static/wechat/jweixin-1.0.0.js"></script><script>-->
+        <!--wx.config({-->
+            <!--debug: false,-->
+            <!--appId: 'wxab141f94c36d66ac',-->
+            <!--timestamp: 1484032306,-->
+            <!--nonceStr: 'ewdjsrLumxNyh7ng',-->
+            <!--signature: 'd9b88186ad65f37d1ccc78053b5adef1221d6ef8',-->
+            <!--jsApiList: ['chooseImage','uploadImage','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo']-->
+
+          <!--});-->
+          <!--wx.ready(function () {-->
+             <!--wx.onMenuShareTimeline({-->
+                <!--title: window.shareData.tTitle, // 分享标题-->
+                <!--link: window.shareData.sendFriendLink, // 分享链接-->
+                <!--imgUrl: window.shareData.imgUrl, // 分享图标-->
+                <!--success: function () {-->
+                    <!--// 用户确认分享后执行的回调函数-->
+                <!--},-->
+                <!--cancel: function () {-->
+                    <!--// 用户取消分享后执行的回调函数-->
+                <!--}-->
+            <!--});-->
+
+            <!--wx.onMenuShareAppMessage({-->
+                <!--title: window.shareData.tTitle, // 分享标题-->
+                <!--desc: window.shareData.tContent, // 分享描述-->
+                <!--link: window.shareData.sendFriendLink, // 分享链接-->
+                <!--imgUrl: window.shareData.imgUrl, // 分享图标-->
+                <!--type: '', // 分享类型,music、video或link，不填默认为link-->
+                <!--dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空-->
+                <!--success: function () {-->
+                    <!--// 用户确认分享后执行的回调函数-->
+                <!--},-->
+                <!--cancel: function () {-->
+                    <!--// 用户取消分享后执行的回调函数-->
+                <!--}-->
+            <!--});-->
+
+            <!--wx.onMenuShareQQ({-->
+                <!--title: window.shareData.tTitle, // 分享标题-->
+                <!--desc: window.shareData.tContent, // 分享描述-->
+                <!--link: window.shareData.sendFriendLink, // 分享链接-->
+                <!--imgUrl: window.shareData.imgUrl, // 分享图标-->
+                <!--success: function () {-->
+                   <!--// 用户确认分享后执行的回调函数-->
+                <!--},-->
+                <!--cancel: function () {-->
+                   <!--// 用户取消分享后执行的回调函数-->
+                <!--}-->
+            <!--});-->
+
+            <!--wx.onMenuShareWeibo({-->
+                <!--title: window.shareData.tTitle, // 分享标题-->
+                <!--desc: window.shareData.tContent, // 分享描述-->
+                <!--link: window.shareData.sendFriendLink, // 分享链接-->
+                <!--imgUrl: window.shareData.imgUrl, // 分享图标-->
+                <!--success: function () {-->
+                   <!--// 用户确认分享后执行的回调函数-->
+                <!--},-->
+                <!--cancel: function () {-->
+                    <!--// 用户取消分享后执行的回调函数-->
+                <!--}-->
+            <!--});-->
+
+            <!--function shareHandle(to) {-->
+                <!--var submitData = {-->
+                    <!--module: window.shareData.moduleName,-->
+                    <!--moduleid: window.shareData.moduleID,-->
+                    <!--token:'mhkhyy1435217993',-->
+                    <!--wecha_id:'',-->
+                    <!--url: window.shareData.sendFriendLink,-->
+                    <!--to:to-->
+                <!--};-->
+                <!--$.post('/index.php/Wap/Share/shareData/token/mhkhyy1435217993.shtml',submitData,function (data) {},'json')-->
+            <!--}-->
+          <!--});-->
+        <!--</script>-->
 
 
-			<!-- 市委政法-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIwMzM2NzQwNQ==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/zfwyh2.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIwMzM2NzQwNQ==&scene=124#wechat_redirect">市委政法</a></p>
-            </div>
-
-			<!-- 人民法院-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAxNDEzMjA1NA==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/rmfy3.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAxNDEzMjA1NA==&scene=124#wechat_redirect">人民法院</a></p>
-            </div>
-
-			<!-- 林业水利局-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI0NzA5MzM2Ng==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/lyslj4.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI0NzA5MzM2Ng==&scene=124#wechat_redirect">林业水利局</a></p>
-            </div>
-
-			<!-- 人力资源-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA3MDg0NTg4Mg==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/rlzy5.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA3MDg0NTg4Mg==&scene=124#wechat_redirect">人力资源与社保</a></p>
-            </div>
-
-			<!-- 市委办公室-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAxMDEyNDg3Ng==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/swb6.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAxMDEyNDg3Ng==&scene=124#wechat_redirect">市委办公室</a></p>
-            </div>
-
-			<!-- 市团委-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5Mjc0NzkwOQ==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/stw7.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5Mjc0NzkwOQ==&scene=124#wechat_redirect">市团委</a></p>
-            </div>
-
-			<!-- 农牧业局-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5MTQyMjU4NA==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/nmyj8.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5MTQyMjU4NA==&scene=124#wechat_redirect">农牧业局</a></p>
-            </div>
-
-			<!-- 教育科技-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAxODYxOTQ2MQ==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/jykj12.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAxODYxOTQ2MQ==&scene=124#wechat_redirect">教育科技</a></p>
-            </div>
-
-
-
-			<!-- 锡林浩特市政务门户网-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI1OTE1NzY0OA==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/zwmh001.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI1OTE1NzY0OA==&scene=124#wechat_redirect">政务门户网</a></p>
-            </div>
-
-			<!-- 锡市公安消防-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAwMDI3NzQ1Mw==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/gaxf004.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAwMDI3NzQ1Mw==&scene=124#wechat_redirect">公安消防</a></p>
-            </div>
-
-			<!-- 锡市清风-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAxNzMyODAyNQ==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/xsqf005.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAxNzMyODAyNQ==&scene=124#wechat_redirect">锡市清风</a></p>
-            </div>
-
-			<!-- 锡市食药工商质监局-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAwMTc3NzA5OQ==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/syzjj006.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAwMTc3NzA5OQ==&scene=124#wechat_redirect">食药质监局</a></p>
-            </div>
-
-			<!-- 生态环保局-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI0NDA1NTUzNg==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/lsst007.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI0NDA1NTUzNg==&scene=124#wechat_redirect">生态环保局</a></p>
-            </div>
-
-			<!-- 锡市民政-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIwMDE5MDExNg==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/xsmz008.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIwMDE5MDExNg==&scene=124#wechat_redirect">锡市民政</a></p>
-            </div>
-
-			<!-- 锡市安监局-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAxOTY1NDYxMg==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/ajj010.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAxOTY1NDYxMg==&scene=124#wechat_redirect">锡市安监局</a></p>
-            </div>
-
-			<!-- 锡市运管出租办-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI0MjQ4NTgzMg==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/ygcz011.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI0MjQ4NTgzMg==&scene=124#wechat_redirect">运管出租办</a></p>
-            </div>
-
-			<!-- 锡市司法-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI4OTAwODQyMA==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/xssf012.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI4OTAwODQyMA==&scene=124#wechat_redirect">锡市司法</a></p>
-            </div>
-
-			<!-- 锡市检察-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIxMzAwMDk5NQ==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/xsjc014.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIxMzAwMDk5NQ==&scene=124#wechat_redirect">锡市检察</a></p>
-            </div>
-
-        </div>
-    </div>
-    <!--其他-->
-    <div class="tabCon clearfix">
-
-		<!-- 市工商联-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIyOTI2MzYzNw==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/gsl.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIyOTI2MzYzNw==&scene=124#wechat_redirect">市工商联</a></p>
-            </div>
-
-		<!-- 为民城管-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5Mzg0OTgyNA==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/wmcg9.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5Mzg0OTgyNA==&scene=124#wechat_redirect">为民城管</a></p>
-            </div>
-
-		<!-- 草原明珠-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA3NjQ5NDkwOQ==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/cymz10.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA3NjQ5NDkwOQ==&scene=124#wechat_redirect">草原明珠</a></p>
-            </div>
-
-		<!-- 市总工会-->
-			<div class="tablist">
-            <div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA4MjA2NTQ2Nw==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/zgh11.png" /></a></div>
-            <p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA4MjA2NTQ2Nw==&scene=124#wechat_redirect">市总工会</a></p>
-            </div>
-
-		<!-- 锡市远教-->
-		<div class="tablist">
-		<div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5NTAxNzM3Mw==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/xsyj013.png" /></a></div>
-		<p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5NTAxNzM3Mw==&scene=124#wechat_redirect">锡市远教</a></p>
-		</div>
-
-		<!-- 锡市公交-->
-		<div class="tablist">
-		<div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5Mjk1MjQ0NA==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/xsgj009.png" /></a></div>
-		<p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5Mjk1MjQ0NA==&scene=124#wechat_redirect">锡市公交</a></p>
-		</div>
-
-		<!-- 平安锡市-->
-		<div class="tablist">
-		<div class="icon"><a  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA3MzU2NjAzNQ==&scene=124#wechat_redirect"><img src="http://121.40.58.147/static/images/paxs003.png" /></a></div>
-		<p><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA3MzU2NjAzNQ==&scene=124#wechat_redirect">平安锡市</a></p>
-		</div>
-
-
-    </div>
-    <!--重要机构-->
-    <div class="tabCon">
-
-    </div>
-</div>
-<script type="text/javascript">
-	$(function(){
-		var hash = window.location.hash.substring(1);
-		if(hash){
-			$(".navBar span").removeClass("cur");
-			$(".navBar span").eq(hash).addClass("cur");
-			$(".tabBox").find(".tabCon").hide().eq(hash).show();
-		}
-		$(".navBar span").each(function(index){
-			$(this).on("tap",function(){
-				window.location.hash=index;
-				$(".navBar span").removeClass("cur");
-				$(this).addClass("cur");
-				$(".tabBox").find(".tabCon").hide().eq(index).show();
-			})
-		});
-	})
-</script>
-</body>
-</html>
+</body></html>
